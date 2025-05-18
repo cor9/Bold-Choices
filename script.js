@@ -1,40 +1,37 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const clapper = document.getElementById('clapper');
-    const snapButton = document.getElementById('snapButton');
-    const promptDisplay = document.getElementById('promptDisplay');
+  const clapper = document.getElementById('clapper');
+  const snapButton = document.getElementById('snapButton');
+  const promptDisplay = document.getElementById('promptDisplay');
 
-    function getRandomPrompt() {
-        const randomIndex = Math.floor(Math.random() * allPrompts.length);
-        const prompt = typeof allPrompts[randomIndex] === 'string' 
-            ? allPrompts[randomIndex] 
-            : allPrompts[randomIndex].text;
-        return prompt;
-    }
+  function getRandomPrompt() {
+    const randomIndex = Math.floor(Math.random() * allPrompts.length);
+    const prompt = typeof allPrompts[randomIndex] === 'string'
+      ? allPrompts[randomIndex]
+      : allPrompts[randomIndex].text;
+    return prompt;
+  }
 
-    function playSnapAnimation() {
-        clapper.classList.add('snapped');
-        setTimeout(() => clapper.classList.remove('snapped'), 600);
-    }
+  function animateClapper() {
+    clapper.classList.add('snap');
+    setTimeout(() => clapper.classList.remove('snap'), 300);
+  }
 
-    function showPrompt() {
-        const prompt = getRandomPrompt();
-        promptDisplay.textContent = prompt;
-    }
+  function showPrompt() {
+    const prompt = getRandomPrompt();
+    promptDisplay.textContent = prompt;
+  }
 
-    clapper.addEventListener('click', () => {
-        playSnapAnimation();
-        showPrompt();
-        playSound();
-    });
+  function playSnap() {
+    animateClapper();
+    showPrompt();
+    playSound();
+  }
 
-    snapButton.addEventListener('click', () => {
-        playSnapAnimation();
-        showPrompt();
-        playSound();
-    });
+  clapper.addEventListener('click', playSnap);
+  snapButton.addEventListener('click', playSnap);
 
-    function playSound() {
-        const audio = new Audio('clap.mp3'); // Add a real clapper sound file
-        audio.play();
-    }
+  function playSound() {
+    const audio = new Audio('clap.mp3'); // Optional: drop in a clapper sound
+    audio.play();
+  }
 });
