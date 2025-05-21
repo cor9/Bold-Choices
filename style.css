@@ -25,142 +25,52 @@ h1 {
     color: #ff6347; /* Tomato color */
 }
 
+/* ... (previous body, app-container, button, prompt styles can remain) ... */
+
 .wheel-container {
     position: relative;
-    width: 250px;
-    height: 250px;
+    width: 300px; /* Match SVG width */
+    height: 300px; /* Match SVG height */
     margin: 30px auto;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.wheel {
-    width: 100%;
-    height: 100%;
-    background-color: #add8e6; /* Light blue */
-    border-radius: 50%;
-    border: 5px solid #ff6347;
-    position: relative;
-    transition: transform 4s cubic-bezier(0.34, 1.56, 0.64, 1); /* Smooth spin */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 1.2em;
-    font-weight: bold;
-    color: #fff;
-    background-image: conic-gradient(
-  hsl(0, 80%, 70%) 0deg 3.64deg,
-  hsl(4, 80%, 70%) 3.64deg 7.27deg,
-  hsl(7, 80%, 70%) 7.27deg 10.91deg,
-  hsl(11, 80%, 70%) 10.91deg 14.55deg,
-  hsl(15, 80%, 70%) 14.55deg 18.18deg,
-  hsl(18, 80%, 70%) 18.18deg 21.82deg,
-  hsl(22, 80%, 70%) 21.82deg 25.45deg,
-  hsl(26, 80%, 70%) 25.45deg 29.09deg,
-  hsl(29, 80%, 70%) 29.09deg 32.73deg,
-  hsl(33, 80%, 70%) 32.73deg 36.36deg,
-  hsl(37, 80%, 70%) 36.36deg 40deg,
-  hsl(40, 80%, 70%) 40deg 43.64deg,
-  hsl(44, 80%, 70%) 43.64deg 47.27deg,
-  hsl(48, 80%, 70%) 47.27deg 50.91deg,
-  hsl(51, 80%, 70%) 50.91deg 54.55deg,
-  hsl(55, 80%, 70%) 54.55deg 58.18deg,
-  hsl(59, 80%, 70%) 58.18deg 61.82deg,
-  hsl(62, 80%, 70%) 61.82deg 65.45deg,
-  hsl(66, 80%, 70%) 65.45deg 69.09deg,
-  hsl(70, 80%, 70%) 69.09deg 72.73deg,
-  hsl(73, 80%, 70%) 72.73deg 76.36deg,
-  hsl(77, 80%, 70%) 76.36deg 80deg,
-  hsl(81, 80%, 70%) 80deg 83.64deg,
-  hsl(84, 80%, 70%) 83.64deg 87.27deg,
-  hsl(88, 80%, 70%) 87.27deg 90.91deg,
-  hsl(92, 80%, 70%) 90.91deg 94.55deg,
-  hsl(95, 80%, 70%) 94.55deg 98.18deg,
-  hsl(99, 80%, 70%) 98.18deg 101.82deg,
-  hsl(103, 80%, 70%) 101.82deg 105.45deg,
-  hsl(106, 80%, 70%) 105.45deg 109.09deg,
-  hsl(110, 80%, 70%) 109.09deg 112.73deg,
-  hsl(114, 80%, 70%) 112.73deg 116.36deg,
-  hsl(117, 80%, 70%) 116.36deg 120deg,
-  hsl(121, 80%, 70%) 120deg 123.64deg,
-  hsl(125, 80%, 70%) 123.64deg 127.27deg,
-  hsl(128, 80%, 70%) 127.27deg 130.91deg,
-  hsl(132, 80%, 70%) 130.91deg 134.55deg,
-  hsl(136, 80%, 70%) 134.55deg 138.18deg,
-  hsl(139, 80%, 70%) 138.18deg 141.82deg,
-  hsl(143, 80%, 70%) 141.82deg 145.45deg,
-  hsl(147, 80%, 70%) 145.45deg 149.09deg,
-  hsl(150, 80%, 70%) 149.09deg 152.73deg,
-  hsl(154, 80%, 70%) 152.73deg 156.36deg,
-  hsl(158, 80%, 70%) 156.36deg 160deg,
-  hsl(161, 80%, 70%) 160deg 163.64deg,
-  hsl(165, 80%, 70%) 163.64deg 167.27deg,
-  hsl(169, 80%, 70%) 167.27deg 170.91deg,
-  hsl(172, 80%, 70%) 170.91deg 174.55deg,
-  hsl(176, 80%, 70%) 174.55deg 178.18deg,
-  hsl(180, 80%, 70%) 178.18deg 181.82deg,
-  hsl(183, 80%, 70%) 181.82deg 185.45deg,
-  hsl(187, 80%, 70%) 185.45deg 189.09deg,
-  hsl(191, 80%, 70%) 189.09deg 192.73deg,
-  hsl(194, 80%, 70%) 192.73deg 196.36deg,
-  hsl(198, 80%, 70%) 196.36deg 200deg,
-  hsl(202, 80%, 70%) 200deg 203.64deg,
-  hsl(205, 80%, 70%) 203.64deg 207.27deg,
-  hsl(209, 80%, 70%) 207.27deg 210.91deg,
-  hsl(213, 80%, 70%) 210.91deg 214.55deg,
-  hsl(216, 80%, 70%) 214.55deg 218.18deg,
-  hsl(220, 80%, 70%) 218.18deg 221.82deg,
-  hsl(224, 80%, 70%) 221.82deg 225.45deg,
-  hsl(227, 80%, 70%) 225.45deg 229.09deg,
-  hsl(231, 80%, 70%) 229.09deg 232.73deg,
-  hsl(235, 80%, 70%) 232.73deg 236.36deg,
-  hsl(238, 80%, 70%) 236.36deg 240deg,
-  hsl(242, 80%, 70%) 240deg 243.64deg,
-  hsl(246, 80%, 70%) 243.64deg 247.27deg,
-  hsl(249, 80%, 70%) 247.27deg 250.91deg,
-  hsl(253, 80%, 70%) 250.91deg 254.55deg,
-  hsl(257, 80%, 70%) 254.55deg 258.18deg,
-  hsl(260, 80%, 70%) 258.18deg 261.82deg,
-  hsl(264, 80%, 70%) 261.82deg 265.45deg,
-  hsl(268, 80%, 70%) 265.45deg 269.09deg,
-  hsl(271, 80%, 70%) 269.09deg 272.73deg,
-  hsl(275, 80%, 70%) 272.73deg 276.36deg,
-  hsl(279, 80%, 70%) 276.36deg 280deg,
-  hsl(282, 80%, 70%) 280deg 283.64deg,
-  hsl(286, 80%, 70%) 283.64deg 287.27deg,
-  hsl(290, 80%, 70%) 287.27deg 290.91deg,
-  hsl(293, 80%, 70%) 290.91deg 294.55deg,
-  hsl(297, 80%, 70%) 294.55deg 298.18deg,
-  hsl(301, 80%, 70%) 298.18deg 301.82deg,
-  hsl(304, 80%, 70%) 301.82deg 305.45deg,
-  hsl(308, 80%, 70%) 305.45deg 309.09deg,
-  hsl(312, 80%, 70%) 309.09deg 312.73deg,
-  hsl(315, 80%, 70%) 312.73deg 316.36deg,
-  hsl(319, 80%, 70%) 316.36deg 320deg,
-  hsl(323, 80%, 70%) 320deg 323.64deg,
-  hsl(326, 80%, 70%) 323.64deg 327.27deg,
-  hsl(330, 80%, 70%) 327.27deg 330.91deg,
-  hsl(334, 80%, 70%) 330.91deg 334.55deg,
-  hsl(337, 80%, 70%) 334.55deg 338.18deg,
-  hsl(341, 80%, 70%) 338.18deg 341.82deg,
-  hsl(345, 80%, 70%) 341.82deg 345.45deg,
-  hsl(348, 80%, 70%) 345.45deg 349.09deg,
-  hsl(352, 80%, 70%) 349.09deg 352.73deg,
-  hsl(356, 80%, 70%) 352.73deg 356.36deg,
-  hsl(360, 80%, 70%) 356.36deg 360deg
-);
+#spinnerWheel {
+    /* border: 1px solid #ccc; /* For visualizing */
+}
+
+#wheelGroup {
+    transform-origin: 150px 150px; /* Center of the 300x300 SVG */
+    transition: transform 5s cubic-bezier(0.25, 0.1, 0.25, 1); /* Animation */
+}
+
+#wheelGroup path {
+    stroke: #fff; /* Optional border for slices */
+    stroke-width: 1;
+}
+
+#wheelGroup text {
+    font-family: Arial, sans-serif;
+    font-size: 10px;
+    fill: #000; /* Text color */
+    text-anchor: middle;
+    dominant-baseline: middle;
+    pointer-events: none; /* So text doesn't interfere with clicks on wheel if any */
 }
 
 .pointer {
     position: absolute;
-    top: -20px;
+    top: -5px; /* Adjust based on pointer size and SVG position */
     left: 50%;
     transform: translateX(-50%);
     font-size: 30px;
     color: #ff6347;
+    z-index: 10; /* Ensure pointer is on top */
 }
 
+/* ... (rest of your CSS) ... */
 #spinButton {
     background-color: #ff6347;
     color: white;
