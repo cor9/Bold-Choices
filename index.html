@@ -69,7 +69,7 @@
   <script src="prompts.js"></script>
 
   <!-- ✅ Inline logic goes below -->
-  <script>
+ <script>
     const props = {
       items: [],
       itemBackgroundColors: Array.from({ length: 99 }, (_, i) =>
@@ -93,14 +93,14 @@
     }
 
     const container = document.getElementById('wheel-container');
-    const wheel = new SpinWheel.Wheel(container, props);
+    const wheel = new Wheel(container, props);  //  ✅  Corrected line
 
     function spinTheWheel() {
       const randomNumber = Math.floor(Math.random() * 99) + 1;
       const itemIndex = randomNumber - 1;
       const duration = 5000;
 
-      wheel.spinToItem(itemIndex, duration, true, 3, 1, SpinWheel.easing.cubicOut);
+      wheel.spinToItem(itemIndex, duration, true, 3, 1, easing.cubicOut); // Assuming 'easing' is available or define it
 
       wheel.onRest = (event) => {
         const selectedNumber = wheel.items[event.currentIndex].value;
@@ -111,6 +111,11 @@
     }
 
     document.getElementById("spin-button").addEventListener("click", spinTheWheel);
+
+    // Assuming 'easing' is defined somewhere or you'll get an error
+    const easing = {
+        cubicOut: t => (--t) * t * t + 1
+    };
   </script>
 
 </body>
