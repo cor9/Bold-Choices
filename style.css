@@ -11,76 +11,100 @@ body {
     padding: 20px;
     box-sizing: border-box;
 }
+
 .app-container {
-  background-color: #fff;
-  padding: 30px;
-  border-radius: 15px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-  max-width: 600px;
-  width: 100%;
-  margin: auto;
-  text-align: center;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    max-width: 600px;
+    width: 100%;
 }
 
-.clapperboard {
-  width: 200px;
-  height: 120px;
-  margin: 30px auto;
-  position: relative;
-  cursor: pointer;
+h1 {
+    color: #ff6347; /* Tomato color */
 }
 
-.clapperboard .top {
-  width: 100%;
-  height: 40px;
-  background: repeating-linear-gradient(
-    45deg,
-    #333,
-    #333 10px,
-    #eee 10px,
-    #eee 20px
-  );
-  border-radius: 5px 5px 0 0;
-  transform-origin: bottom center;
-  transition: transform 0.2s ease;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 2;
+.wheel-container {
+    position: relative;
+    width: 250px;
+    height: 250px;
+    margin: 30px auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.clapperboard .bottom {
-  width: 100%;
-  height: 80px;
-  background: #333;
-  border-radius: 0 0 5px 5px;
-  position: absolute;
-  bottom: 0;
-  left: 0;
+.wheel {
+    width: 100%;
+    height: 100%;
+    background-color: #add8e6; /* Light blue */
+    border-radius: 50%;
+    border: 5px solid #ff6347;
+    position: relative;
+    transition: transform 4s cubic-bezier(0.34, 1.56, 0.64, 1); /* Smooth spin */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #fff;
+    background-image: conic-gradient( /* Keep this for visual flair */
+        #ffadad 0deg 10deg, #ffd6a5 10deg 20deg, #fdffb6 20deg 30deg,
+        #caffbf 30deg 40deg, #9bf6ff 40deg 50deg, #a0c4ff 50deg 60deg,
+        #bdb2ff 60deg 70deg, #ffc6ff 70deg 80deg, #ffadad 80deg 90deg,
+        /* ... many more segments for visual effect if desired ... */
+        #caffbf 350deg 360deg
+    );
 }
 
-.clapperboard.snap .top {
-  transform: rotateX(-60deg);
+.pointer {
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 30px;
+    color: #ff6347;
 }
 
-#snapButton {
-  background-color: #ff6347;
-  color: white;
-  border: none;
-  padding: 12px 24px;
-  font-size: 1.1em;
-  border-radius: 20px;
-  cursor: pointer;
-  margin-bottom: 20px;
+#spinButton {
+    background-color: #ff6347;
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    font-size: 1.2em;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-bottom: 20px;
 }
 
-.prompt-card {
-  background-color: #fff8e1;
-  border: 2px dashed #ff6347;
-  border-radius: 10px;
-  padding: 20px;
-  max-width: 500px;
-  margin: 0 auto;
+#spinButton:hover {
+    background-color: #e5533d;
+}
+
+#spinButton:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+.result-container { /* Styling for the winning number container */
+    margin-bottom: 10px;
+}
+
+#winningNumberDisplay {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #007bff; /* Blue color for the number */
+    min-height: 30px; /* Ensure space */
+}
+
+.prompt-display-container {
+    margin-top: 10px;
+    padding: 20px;
+    background-color: #fff8e1; /* Light yellow */
+    border: 2px dashed #ff6347;
+    border-radius: 10px;
 }
 
 .prompt-display-container h2 {
@@ -90,6 +114,6 @@ body {
 
 #promptDisplay {
     font-size: 1.1em;
-    min-height: 50px; /* Ensure space for text */
+    min-height: 50px;
     color: #555;
 }
