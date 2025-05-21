@@ -1,14 +1,72 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const wheel = document.getElementById('wheel');
+    const svgNS = "http://www.w3.org/2000/svg";
+    const wheelGroup = document.getElementById('wheelGroup');
     const spinButton = document.getElementById('spinButton');
     const promptDisplay = document.getElementById('promptDisplay');
-    const winningNumberDisplay = document.getElementById('winningNumberDisplay'); // Get the new element
+    const winningNumberDisplay = document.getElementById('winningNumberDisplay');
 
-    const totalPrompts = allPrompts.length; // Should be 99
-    const segmentAngle = 360 / totalPrompts; // Angle for each conceptual segment
+    const totalSegments = allPrompts.length; // Should be 99
+    const centerX = 150;
+    const centerY = 150;
+    const radius = 140; // Slightly less than half of viewBox to fit
+    const segmentAngleDegrees = 360 / totalSegments;
+
+    const colors = ["#FFC0CB", "#ADD8E6", "#90EE90", "#FFD700", "#FFA07A", "#B0E0E6", "#DDA0DD", "#F0E68C"]; // Example colors
+
+    // --- Helper function to describe an arc ---
+    function describeArc(x, y, radius, startAngleDeg, endAngleDeg) {
+        const startAngleRad = (startAngleDeg - 90) * Math.PI / 180; // Offset by -90 to start at 12 o'clock
+        const endAngleRad = (endAngleDeg - 90) * Math.PI / 180;
+
+        const startX = x + radius * Math.cos(startAngleRad);
+        const startY = y + radius * Math.sin(startAngleRad);
+        const endX = x + radius * Math.cos(endAngleRad);
+        const endY = y + radius * Math.sin(endAngleRad);
+
+        const largeArcFlag = endAngleDeg - startAngleDeg <= 180 ? "0" : "1";
+        const sweepFlag = "1"; // Draw clockwise
+
+        return `M ${x} ${y} L ${startX} ${startY} A ${radius} ${radius} 0 ${largeArcFlag} ${sweepFlag} ${endX} ${endY} Z`;
+    }
+
+    // --- Helper function to get text position ---
+    function getTextPosition(x, y, radius, angleDeg) {
+        const angleRad = (angleDeg - 90) * Math.PI / 180; // Offset by -90
+        // Position text slightly inwards from the main radius
+        const textRadius = radius * 0.75;
+        return {
+            x: x + textRadius * Math.cos(angleRad),
+            y: y + textRadius * Math.sin(angleRad),
+            rotation: angleDeg // For rotating text with the segment
+        };
+    }
+
+
+    // --- Generate Wheel Segments and Labels ---
+    for (let i = 0; i < totalSegments; i++) {
+        const startAngle = i * segmentAngleDegrees;
+        const endAngle = (i + 1) * segmentAngleDegrees;
+
+        // Create Path
+        const path = document.createElementNS(svgNS, "path");
+        path.setAttributeNS(null, "d", describeArc(centerX, centerY, radius, startAngle, endAngle));
+        path.setAttributeNS(null, "fill", colors[i % colors.length]);
+        wheelGroup.appendChild(path);
+
+        // Create Text Label
+        const midAngle = startAngle + (segmentAngleDegrees / 2);
+        const textPos = getTextPosition(centerX, centerY, radius, midAngle);
+        const text = document.createElementNS(svgNS, "text");
+        text.setAttributeNS(null, "x", textPos.x);
+        text.setAttributeNS(null, "y", textPos.y);
+        // Optional: Rotate text to align with segment (can make it hard to read if many segments)
+        // text.setAttributeNS(null, "transform", `rotate(${textPos.rotation}, ${textPos.x}, ${textPos.y})`);
+        text.textContent = i + 1;
+        wheelGroup.appendChild(text);
+    }
 
     let isSpinning = false;
-    let currentWheelRotation = 0; // Keep track of wheel's actual rotation
+    let currentRotationDeg = 0; // Keep track of the wheel's logical rotation
 
     spinButton.addEventListener('click', () => {
         if (isSpinning) return;
@@ -18,48 +76,49 @@ document.addEventListener('DOMContentLoaded', () => {
         promptDisplay.textContent = "Spinning...";
         winningNumberDisplay.textContent = "Landing on #...";
 
-        // 1. Select a random prompt (index 0 to totalPrompts - 1)
-        const randomIndex = Math.floor(Math.random() * totalPrompts);
+        const randomIndex = Math.floor(Math.random() * totalSegments);
+        const winningPromptNumber = randomIndex + 1;
         const selectedPromptText = allPrompts[randomIndex];
-        const winningPromptNumber = randomIndex + 1; // Display number (1 to totalPrompts)
 
-        // 2. Calculate rotation for the wheel
-        // We want the pointer to land in the middle of the segment for the winning number.
-        // The target segment's middle angle: (winningPromptNumber - 0.5) * segmentAngle
-        // To make it spin nicely, add multiple full rotations
-        const randomFullRotations = Math.floor(Math.random() * 4) + 3; // 3 to 6 full rotations
+        // Calculate rotation to bring the middle of the (randomIndex)th segment to the top (under the pointer)
+        // The top is effectively 0 degrees in this visual setup once offset.
+        // Each segment's middle is at (index + 0.5) * segmentAngleDegrees.
+        // We want this angle to be at the "0" position (top).
+        // So, we rotate by -( (randomIndex + 0.5) * segmentAngleDegrees )
+        const targetAngleForSegmentCenter = (randomIndex + 0.5) * segmentAngleDegrees;
         
-        // Calculate the final angle. Subtract from 360 if pointer is at top and rotation is clockwise.
-        // Angle for the middle of the segment for `randomIndex` (0-indexed)
-        const targetSegmentCenterAngle = (randomIndex + 0.5) * segmentAngle;
+        // How many extra full spins
+        const numFullSpins = 5;
         
-        // Total rotation to add. We ensure it spins forward.
-        const spinRotation = (randomFullRotations * 360) + targetSegmentCenterAngle;
+        // The final rotation value for the CSS transform.
+        // We want the segment to land under the pointer (usually at 0 deg or top).
+        // If the pointer is at the 12 o'clock position, we want the middle of the target segment to rotate to that position.
+        // The SVG group rotates clockwise for positive degrees.
+        // To bring segment `randomIndex`'s center to the top (0 deg reference), we need to rotate it by:
+        // `-( (randomIndex * segmentAngleDegrees) + (segmentAngleDegrees / 2) )`
+        // This aligns the center of segment `randomIndex` with the top pointer.
+        const rotationToLand = - ( (randomIndex * segmentAngleDegrees) + (segmentAngleDegrees / 2) );
 
-        currentWheelRotation += spinRotation; // Add to existing rotation to make it spin from current pos
 
-        wheel.style.transform = `rotate(${currentWheelRotation}deg)`;
+        // Add full spins and ensure it's a new rotation from a "zeroed" perspective conceptually
+        // To avoid issues with cumulative CSS rotations, we calculate the absolute target.
+        // However, to make it *spin* more, we add to `currentRotationDeg`.
+        const spinAmount = (numFullSpins * 360) + rotationToLand - (currentRotationDeg % 360); // Spin relative to current visual state
+        currentRotationDeg += spinAmount;
 
-        // 3. After the spin animation (CSS transition duration is 4s)
+
+        wheelGroup.style.transform = `rotate(${currentRotationDeg}deg)`;
+
         setTimeout(() => {
-            winningNumberDisplay.textContent = `Landed on Prompt #${winningPromptNumber}!`;
+            winningNumberDisplay.textContent = `You got #${winningPromptNumber}!`;
             promptDisplay.textContent = selectedPromptText;
+            
             isSpinning = false;
             spinButton.disabled = false;
 
-            // Optional: To make subsequent spins cleaner and ensure the pointer aligns correctly
-            // for the *next* spin's calculation, we can normalize the wheel's visual rotation
-            // to point directly at the landed segment's center, effectively 'snapping' it.
-            // This makes the next targetAngle calculation more straightforward if we weren't
-            // using cumulative rotation. For this cumulative `currentWheelRotation` example,
-            // it's less critical but can make the "stop" feel more precise.
-            // Let's adjust the currentWheelRotation to be perfectly aligned with the center of the segment visually.
-            // The actual rotation should be such that the pointer (at 0 deg or top) points to targetSegmentCenterAngle
-            // This part is a bit tricky with cumulative rotation but the current approach should work fine visually.
-            // For a very precise stop, you might want to set the wheel's end rotation to a value
-            // that ensures the top pointer is exactly over the middle of the landed segment.
-            // The current approach uses the `targetSegmentCenterAngle` effectively.
+            // Optional: Normalize currentRotationDeg to keep it within 0-360 for the next calculation's base if needed
+            // currentRotationDeg = currentRotationDeg % 360; // This might be needed if not calculating absolute target for spinAmount
 
-        }, 4000); // Match CSS transition time
+        }, 5000); // Match CSS transition duration (5s)
     });
 });
