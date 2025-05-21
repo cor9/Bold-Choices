@@ -65,15 +65,15 @@
 
   <div class="prompt-box" id="result-text">Your prompt will appear here.</div>
 
-  <script>
-    // Dummy prompt bank (replace with real ones if desired)
-    const allPrompts = Array.from({ length: 99 }, (_, i) =>
-      `Prompt #${i + 1}: Make a bold acting choice for this scene.`);
+  <!-- ✅ Load prompts.js before your inline script -->
+  <script src="prompts.js"></script>
 
+  <!-- ✅ Inline logic goes below -->
+  <script>
     const props = {
       items: [],
       itemBackgroundColors: Array.from({ length: 99 }, (_, i) =>
-        i % 2 === 0 ? '#ff6347' : '#fcd34d' // Red & Gold alternating
+        i % 2 === 0 ? '#ff6347' : '#fcd34d'
       ),
       itemLabelColors: ['#000'],
       itemLabelFont: 'Arial',
