@@ -1,31 +1,117 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bold Choices SVG Spinner</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <title>Bold Choices Acting Prompts</title>
+  <script src="https://cdn.jsdelivr.net/npm/spin-wheel@5.0.2/dist/spin-wheel-iife.js"></script>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background: #f5fbff;
+      text-align: center;
+      padding: 30px;
+    }
+
+    #wheel-container {
+      width: 500px;
+      height: 500px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .pointer {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 40px;
+      color: #ff6347;
+      z-index: 10;
+    }
+
+    button {
+      margin-top: 30px;
+      padding: 15px 30px;
+      font-size: 1.1em;
+      border-radius: 25px;
+      border: none;
+      background-color: #ff6347;
+      color: white;
+      cursor: pointer;
+    }
+
+    .prompt-box {
+      margin-top: 30px;
+      background: #fff8e1;
+      border: 2px dashed #ff6347;
+      padding: 20px;
+      border-radius: 10px;
+      font-size: 1.2em;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  </style>
 </head>
 <body>
-    <div class="app-container">
-        <h1>Bold Choices Acting Prompts</h1>
-        <div class="wheel-container">
-            <svg id="spinnerWheel" width="300" height="300" viewBox="0 0 300 300">
-                <g id="wheelGroup" transform-origin="150 150">
-                    </g>
-            </svg>
-            <div class="pointer">▼</div> </div>
-        <button id="spinButton">Spin for a Bold Choice!</button>
-        <div class="result-container">
-            <p id="winningNumberDisplay"></p>
-        </div>
-        <div class="prompt-display-container">
-            <h2>Your Prompt:</h2>
-            <p id="promptDisplay">Click "Spin" to get your prompt!</p>
-        </div>
-    </div>
-    <script src="https://cdn.jsdelivr.net/npm/spin-wheel@5.0.2/dist/spin-wheel-iife.js"></script>
-    <script src="prompts.js"></script>
-    <script src="script.js"></script>
+
+  <h1>Bold Choices Acting Prompts</h1>
+
+  <div id="wheel-container">
+    <div class="pointer">▼</div>
+  </div>
+
+  <button id="spin-button">Spin for a Bold Choice!</button>
+
+  <div class="prompt-box" id="result-text">Your prompt will appear here.</div>
+
+  <script>
+    // Dummy prompt bank (replace with real ones if desired)
+    const allPrompts = Array.from({ length: 99 }, (_, i) =>
+      `Prompt #${i + 1}: Make a bold acting choice for this scene.`);
+
+    const props = {
+      items: [],
+      itemBackgroundColors: Array.from({ length: 99 }, (_, i) =>
+        i % 2 === 0 ? '#ff6347' : '#fcd34d' // Red & Gold alternating
+      ),
+      itemLabelColors: ['#000'],
+      itemLabelFont: 'Arial',
+      itemLabelFontSizeMax: 18,
+      radius: 0.95,
+      pointerAngle: 0,
+      lineColor: '#ffffff',
+      lineWidth: 1
+    };
+
+    for (let i = 1; i <= 99; i++) {
+      props.items.push({
+        label: i.toString(),
+        value: i,
+        weight: 1
+      });
+    }
+
+    const container = document.getElementById('wheel-container');
+    const wheel = new SpinWheel.Wheel(container, props);
+
+    function spinTheWheel() {
+      const randomNumber = Math.floor(Math.random() * 99) + 1;
+      const itemIndex = randomNumber - 1;
+      const duration = 5000;
+
+      wheel.spinToItem(itemIndex, duration, true, 3, 1, SpinWheel.easing.cubicOut);
+
+      wheel.onRest = (event) => {
+        const selectedNumber = wheel.items[event.currentIndex].value;
+        const prompt = allPrompts[selectedNumber - 1] || "Prompt not found.";
+        document.getElementById("result-text").textContent =
+          `Prompt #${selectedNumber}: ${prompt}`;
+      };
+    }
+
+    document.getElementById("spin-button").addEventListener("click", spinTheWheel);
+  </script>
+
 </body>
 </html>
