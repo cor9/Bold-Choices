@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   const container = document.getElementById('wheel-container');
-  const wheel = new SpinWheel.Wheel(container, props); 
+  const wheel = new Wheel(container, props); 
 
   const easing = {
     cubicOut: t => (--t) * t * t + 1
