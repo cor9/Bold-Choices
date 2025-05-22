@@ -1,115 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Bold Choices Acting Prompts</title>
-  <script src="https://cdn.jsdelivr.net/npm/spin-wheel@5.0.2/dist/spin-wheel-iife.js"></script>
-  <style>
-    body {
-      font-family: 'Arial', sans-serif;
-      background: #f5fbff;
-      text-align: center;
-      padding: 30px;
-    }
-
-    #wheel-container {
-      width: 500px;
-      height: 500px;
-      margin: 0 auto;
-      position: relative;
-    }
-
-    .pointer {
-      position: absolute;
-      top: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 40px;
-      color: #ff6347;
-      z-index: 10;
-    }
-
-    button {
-      margin-top: 30px;
-      padding: 15px 30px;
-      font-size: 1.1em;
-      border-radius: 25px;
-      border: none;
-      background-color: #ff6347;
-      color: white;
-      cursor: pointer;
-    }
-
-    .prompt-box {
-      margin-top: 30px;
-      background: #fff8e1;
-      border: 2px dashed #ff6347;
-      padding: 20px;
-      border-radius: 10px;
-      font-size: 1.2em;
-      max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bold Acting Choices Clapperboard</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div class="container">
+        <h1>Bold Acting Choices</h1>
+        
+        <div class="clapperboard-container">
+            <div class="click-instruction" id="clickInstruction">Click the clapper to get your prompt!</div>
+            <div class="clapperboard">
+                <div class="clapper-top" id="clapperTop">
+                    <div class="clapper-stripes"></div>
+                </div>
+                <div class="clapper-bottom">
+                    <div class="slate-content">
+                        <div class="slate-line">
+                            <span class="slate-label">PRODUCTION:</span>
+                            <span class="slate-value">Bold Acting Choices</span>
+                        </div>
+                        <div class="slate-line">
+                            <span class="slate-label">SCENE:</span>
+                            <span class="slate-value">Your Next Performance</span>
+                        </div>
+                        <div class="slate-line">
+                            <span class="slate-label">TAKE:</span>
+                            <span class="slate-value" id="takeNumber">1</span>
+                        </div>
+                        <div class="slate-line">
+                            <span class="slate-label">PROMPT:</span>
+                            <span class="slate-value prompt-number" id="promptNumber">?</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-  <h1>Bold Choices Acting Prompts</h1>
+        <button class="action-button" id="newPromptBtn" onclick="getNewPrompt()">Get New Prompt</button>
+        <button class="action-button" id="showPromptBtn" onclick="showCurrentPrompt()" style="display: none;">Show Current Prompt</button>
 
-  <div id="wheel-container">
-    <div class="pointer">▼</div>
-  </div>
+        <div class="prompt-display" id="promptDisplay">
+            <div class="prompt-header" id="promptHeader"></div>
+            <div class="prompt-text" id="promptText"></div>
+        </div>
+    </div>
 
-  <button id="spin-button">Spin for a Bold Choice!</button>
-
-  <div class="prompt-box" id="result-text">Your prompt will appear here.</div>
-
-  <script src="prompts.js"></script>
-
-  <script>
-    const props = {
-      items: [],
-      itemBackgroundColors: Array.from({ length: 99 }, (_, i) =>
-        i % 2 === 0 ? '#ff6347' : '#fcd34d'
-      ),
-      itemLabelColors: ['#000'],
-      itemLabelFont: 'Arial',
-      itemLabelFontSizeMax: 18,
-      radius: 0.95,
-      pointerAngle: 0,
-      lineColor: '#ffffff',
-      lineWidth: 1
-    };
-
-    for (let i = 1; i <= 99; i++) {
-      props.items.push({
-        label: i.toString(),
-        value: i,
-        weight: 1
-      });
-    }
-
-    const container = document.getElementById('wheel-container');
-    const wheel = new Wheel(container, props); // Corrected line
-
-    function spinTheWheel() {
-      const randomNumber = Math.floor(Math.random() * 99) + 1;
-      const itemIndex = randomNumber - 1;
-      const duration = 5000;
-
-      wheel.spinToItem(itemIndex, duration, true, 3, 1, SpinWheel.easing.cubicOut);
-
-      wheel.onRest = (event) => {
-        const selectedNumber = wheel.items[event.currentIndex].value;
-        const prompt = allPrompts[selectedNumber - 1] || "Prompt not found.";
-        document.getElementById("result-text").textContent =
-          `Prompt #${selectedNumber}: ${prompt}`;
-      };
-    }
-
-    document.getElementById("spin-button").addEventListener("click", spinTheWheel);
-  </script>
-
+    <script src="prompts.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
