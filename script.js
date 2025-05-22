@@ -1,47 +1,102 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const props = {
-    items: [],
-    itemBackgroundColors: Array.from({ length: 99 }, (_, i) =>
-      i % 2 === 0 ? '#ff6347' : '#fcd34d'
-    ),
-    itemLabelColors: ['#000'],
-    itemLabelFont: 'Arial',
-    itemLabelFontSizeMax: 18,
-    radius: 0.95,
-    pointerAngle: 0,
-    lineColor: '#ffffff',
-    lineWidth: 1
-  };
+let currentPromptIndex = null;
+let takeCount = 1;
+let isAnimating = false;
 
-  for (let i = 1; i <= 99; i++) {
-    props.items.push({
-      label: i.toString(),
-      value: i,
-      weight: 1
-    });
-  }
+// Create clap sound effect
+function createClapSound() {
+    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    
+    // Create a sharp, snappy sound
+    const oscillator = audioContext.createOscillator();
+    const gainNode = audioContext.createGain();
+    const noiseBuffer = audioContext.createBuffer(1, audioContext.sampleRate * 0.1, audioContext.sampleRate);
+    const noiseSource = audioContext.createBufferSource();
+    
+    // Generate white noise for the clap
+    const output = noiseBuffer.getChannelData(0);
+    for (let i = 0; i < noiseBuffer.length; i++) {
+        output[i] = Math.random() * 2 - 1;
+    }
+    
+    noiseSource.buffer = noiseBuffer;
+    
+    // Create sharp attack and quick decay
+    gainNode.gain.setValueAtTime(0, audioContext.currentTime);
+    gainNode.gain.linearRampToValueAtTime(0.3, audioContext.currentTime + 0.01);
+    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
+    
+    // Connect the nodes
+    noiseSource.connect(gainNode);
+    gainNode.connect(audioContext.destination);
+    
+    // Play the sound
+    noiseSource.start(audioContext.currentTime);
+    noiseSource.stop(audioContext.currentTime + 0.1);
+}
 
-  const container = document.getElementById('wheel-container');
-  const wheel = new Wheel(container, props);  // CORRECTED LINE
+function getNewPrompt() {
+    if (isAnimating) return;
+    
+    isAnimating = true;
+    const clapperTop = document.getElementById('clapperTop');
+    const clickInstruction = document.getElementById('clickInstruction');
+    const promptDisplay = document.getElementById('promptDisplay');
+    
+    // Hide instruction and prompt display
+    clickInstruction.style.display = 'none';
+    promptDisplay.classList.remove('show');
+    
+    // Play clap sound
+    try {
+        createClapSound();
+    } catch (e) {
+        console.log('Audio not supported');
+    }
+    
+    // Trigger clapper animation
+    clapperTop.classList.add('clapped');
+    
+    // Generate random prompt
+    currentPromptIndex = Math.floor(Math.random() * prompts.length);
+    
+    setTimeout(() => {
+        // Update slate
+        document.getElementById('promptNumber').textContent = currentPromptIndex + 1;
+        document.getElementById('takeNumber').textContent = takeCount;
+        
+        // Show prompt
+        showCurrentPrompt();
+        
+        // Update buttons
+        document.getElementById('newPromptBtn').textContent = 'Get Another Prompt';
+        document.getElementById('showPromptBtn').style.display = 'inline-block';
+        
+        takeCount++;
+        isAnimating = false;
+        
+        // Reset clapper after animation
+        setTimeout(() => {
+            clapperTop.classList.remove('clapped');
+        }, 200);
+    }, 800);
+}
 
-  const easing = {
-    cubicOut: t => (--t) * t * t + 1
-  };
+function showCurrentPrompt() {
+    if (currentPromptIndex === null) {
+        getNewPrompt();
+        return;
+    }
+    
+    const promptDisplay = document.getElementById('promptDisplay');
+    const promptHeader = document.getElementById('promptHeader');
+    const promptText = document.getElementById('promptText');
+    
+    promptHeader.textContent = `Prompt #${currentPromptIndex + 1}`;
+    promptText.textContent = prompts[currentPromptIndex];
+    
+    promptDisplay.classList.add('show');
+    promptDisplay.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
 
-  function spinTheWheel() {
-    const randomNumber = Math.floor(Math.random() * 99) + 1;
-    const itemIndex = randomNumber - 1;
-    const duration = 5000;
-
-    wheel.spinToItem(itemIndex, duration, true, 3, 1, easing.cubicOut);
-
-    wheel.onRest = (event) => {
-      const selectedNumber = wheel.items[event.currentIndex].value;
-      const prompt = allPrompts[selectedNumber - 1] || "Prompt not found.";
-      document.getElementById("result-text").textContent =
-        `Prompt #${selectedNumber}: ${prompt}`;
-    };
-  }
-
-  document.getElementById("spin-button").addEventListener("click", spinTheWheel);
-});
+// Add click event to clapper
+document.getElementById('clapperTop').addEventListener('click', getNewPrompt);
