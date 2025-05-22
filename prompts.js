@@ -1,5 +1,4 @@
-const allPrompts = [
-    // Your 43 Original Prompts:
+const prompts = [
     "Cover up the emotions of your character in the scene by using the opposite emotion instead.",
     "Do the scene as if you are on a really intense rollercoaster.",
     "Before you say each line, look into your scene partner's eyes first to see if you can read your next line in them.",
@@ -39,12 +38,10 @@ const allPrompts = [
     "At some point in the scene, do a dance.",
     "Discover partway into the scene that you are actually totally in love with your scene partner.",
     "Use instrumental music to get you to feel the tone of the scene.",
-    "Play it ghetto this time.", // Consider rephrasing for sensitivity
+    "Play it with urban attitude this time.",
     "Play it like you are in a different era than the scene is supposed to be set in.",
     "This time, do the scene as if you have to pee really bad.",
     "Do the scene as if you absolutely did not want anyone in the next room to hear this conversation.",
-
-    // 56 New Prompts:
     "Secret Urgency: Perform the scene as if you have a critical, secret ticking clock that only you know about (e.g., you must leave in exactly 2 minutes).",
     "Hidden Physical Discomfort: Play the scene as if something is physically uncomfortable (a tag in your shirt, a rock in your shoe, a burgeoning headache) that you're trying to hide.",
     "Pervasive Suspicion: Do the scene as if you deeply suspect the other character is lying about something fundamental, even if the script offers no direct evidence.",
