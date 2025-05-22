@@ -1,79 +1,57 @@
-# Bold Choices Acting Prompt Wheel
+# Bold Acting Choices
 
-**An interactive acting training tool designed for risk-takers.**  
-Spin the wheel. Get a bold, imaginative prompt. Make stronger, stranger, more specific choices.
+An interactive film clapperboard that generates random acting prompts to help actors break out of their comfort zones and discover fresh approaches to their scenes.
 
-Created for young actors, acting coaches, and creative educators who believe growth lives outside the comfort zone.
+## Features
 
----
+🎬 **Realistic Clapperboard**: Authentic film slate design with satisfying clap animation and sound
+🎭 **99 Acting Prompts**: Comprehensive collection of creative acting exercises and techniques
+🔊 **Sound Effects**: Real clap sound generated using Web Audio API
+📱 **Mobile Responsive**: Works perfectly on all devices
+🎨 **Cinematic Design**: Professional theater-worthy aesthetic
 
-## Demo
+## How to Use
 
-**Live Site:** [https://your-live-site.com](https://your-live-site.com)  
-**Creator:** [ChildActor101.com](https://childactor101.com)
+1. Click the striped clapper at the top or use the "Get New Prompt" button
+2. The clapper snaps down with realistic animation and sound
+3. Your random prompt number appears on the slate
+4. The full prompt text displays below
+5. Each "take" increments the counter like a real film production
 
----
+## Installation
 
-## What It Does
+1. Clone this repository
+2. Open `index.html` in your web browser
+3. Start exploring bold acting choices!
 
-This web-based app spins a visually engaging wheel to deliver one of 100+ acting prompts. Each prompt is crafted to challenge the actor’s instincts, stretch emotional range, or shake up tired scene work.
+## GitHub Pages
 
-Use it:
-- In class warm-ups
-- For self-tape rehearsals
-- During private coaching
-- As daily practice for building charisma and boldness
+You can also deploy this directly to GitHub Pages:
 
----
+1. Go to your repository settings
+2. Scroll to "Pages" section
+3. Select "Deploy from a branch"
+4. Choose "main" branch and "/ (root)" folder
+5. Your app will be available at `https://yourusername.github.io/bold-acting-choices`
 
-## Current Features
+## Prompts Include
 
-- **Spin-to-Play UI** with animated wheel and segment logic
-- **Over 100 unique prompts** built for variety, risk, and depth
-- **Mobile-responsive design**
-- **Clean UI** using only HTML, CSS, and vanilla JS
-- **Prompt delivery & display logic** built to scale
+- Emotional contrasts and opposites
+- Physical and vocal techniques
+- Character perspective shifts
+- Genre explorations
+- Psychological states and objectives
+- Advanced acting methods and exercises
 
----
+Perfect for acting classes, rehearsals, audition prep, or whenever you need to shake up your performance approach!
 
-## Roadmap Features (Monetizable)
+## Technologies Used
 
-We're building this into a full SaaS product. Here’s what’s coming:
+- Vanilla HTML, CSS, and JavaScript
+- CSS3 animations and transforms
+- Web Audio API for sound generation
+- Responsive design principles
 
-### **Premium Features**
-- [ ] **Unlimited Spins** (free users get limited spins/day)
-- [ ] **Prompt Categories** (Comedy, Drama, Physical, Vocal, Wildcard)
-- [ ] **Save Favorite Prompts**
-- [ ] **Download PDF or share to device**
-- [ ] **PDF Deck Export** for teachers and classrooms
-- [ ] **Scene Challenge Builder**: Combine prompt + genre + age range
-- [ ] **Email-a-Prompt** daily challenge drip campaign
+## License
 
-### **Teacher Mode**
-- [ ] **Lesson Plan Mode**: Auto-generates 5 random prompts for in-class use
-- [ ] **Student Tracker**: Teachers can assign and log performance notes
-- [ ] **License Options**: Solo | Group | Classroom
-
-### **Accounts & Payments**
-- [ ] Stripe integration (one-time unlock or subscription)
-- [ ] Firebase auth for login/progress
-- [ ] Usage tracking (prompt history, starred prompts)
-- [ ] Referral program / affiliate links
-
----
-
-## Tech Stack
-
-- **Frontend:** HTML, CSS3, JavaScript
-- **Hosting:** Netlify, Vercel, or Render (static)
-- **Future:** Next.js, Firebase, Stripe, Supabase (for SaaS version)
-
----
-
-## File Structure
-
-```bash
-├── index.html         # Main HTML structure
-├── style.css          # Styling for layout, wheel, buttons
-├── script.js          # Spin logic, animation, prompt display
-├── prompts.js         # The full acting prompt bank
+MIT License - Feel free to use, modify, and share!
