@@ -1,123 +1,250 @@
-body {
-    font-family: 'Arial', sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background-color: #f0f8ff;
-    color: #333;
-    text-align: center;
+* {
     margin: 0;
-    padding: 20px;
+    padding: 0;
     box-sizing: border-box;
 }
 
-.app-container {
-    background-color: #fff;
-    padding: 30px;
-    border-radius: 15px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-    max-width: 600px;
+body {
+    font-family: 'Georgia', serif;
+    background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    padding: 20px;
+}
+
+.container {
+    text-align: center;
+    max-width: 800px;
     width: 100%;
 }
 
 h1 {
-    color: #ff6347; /* Tomato color */
+    font-size: 2.5em;
+    margin-bottom: 40px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    background: linear-gradient(45deg, #FFD700, #FF4444);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
-/* ... (previous body, app-container, button, prompt styles can remain) ... */
-
-.wheel-container {
+.clapperboard-container {
     position: relative;
-    width: 300px; /* Match SVG width */
-    height: 300px; /* Match SVG height */
-    margin: 30px auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    width: 400px;
+    height: 300px;
+    margin: 0 auto 40px;
+    perspective: 1000px;
 }
 
-#spinnerWheel {
-    /* border: 1px solid #ccc; /* For visualizing */
+.clapperboard {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
 }
 
-#wheelGroup {
-    transform-origin: 150px 150px; /* Center of the 300x300 SVG */
-    transition: transform 5s cubic-bezier(0.25, 0.1, 0.25, 1); /* Animation */
-}
-
-#wheelGroup path {
-    stroke: #fff; /* Optional border for slices */
-    stroke-width: 1;
-}
-
-#wheelGroup text {
-    font-family: Arial, sans-serif;
-    font-size: 10px;
-    fill: #000; /* Text color */
-    text-anchor: middle;
-    dominant-baseline: middle;
-    pointer-events: none; /* So text doesn't interfere with clicks on wheel if any */
-}
-
-.pointer {
+.clapper-top {
     position: absolute;
-    top: -5px; /* Adjust based on pointer size and SVG position */
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 30px;
-    color: #ff6347;
-    z-index: 10; /* Ensure pointer is on top */
+    width: 100%;
+    height: 80px;
+    background: linear-gradient(45deg, #333, #555);
+    border: 3px solid #222;
+    border-radius: 8px 8px 0 0;
+    transform-origin: bottom;
+    transition: transform 0.3s ease;
+    z-index: 10;
+    cursor: pointer;
 }
 
-/* ... (rest of your CSS) ... */
-#spinButton {
-    background-color: #ff6347;
+.clapper-top.clapped {
+    animation: clap 0.8s ease-out;
+}
+
+@keyframes clap {
+    0% { transform: rotateX(0deg); }
+    15% { transform: rotateX(-60deg); }
+    25% { transform: rotateX(-70deg); }
+    35% { transform: rotateX(-50deg); }
+    45% { transform: rotateX(-65deg); }
+    55% { transform: rotateX(-45deg); }
+    65% { transform: rotateX(-55deg); }
+    75% { transform: rotateX(-35deg); }
+    85% { transform: rotateX(-45deg); }
+    95% { transform: rotateX(-25deg); }
+    100% { transform: rotateX(-30deg); }
+}
+
+.clapper-stripes {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+        45deg,
+        #000 0px,
+        #000 15px,
+        #fff 15px,
+        #fff 30px
+    );
+    border-radius: 8px 8px 0 0;
+}
+
+.clapper-bottom {
+    position: absolute;
+    top: 80px;
+    width: 100%;
+    height: 220px;
+    background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
+    border: 3px solid #222;
+    border-radius: 0 0 8px 8px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.slate-content {
+    padding: 20px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: left;
+}
+
+.slate-line {
+    margin-bottom: 15px;
+    font-family: 'Courier New', monospace;
+    border-bottom: 1px solid #444;
+    padding-bottom: 5px;
+}
+
+.slate-label {
+    color: #FFD700;
+    font-weight: bold;
+    font-size: 14px;
+    margin-right: 10px;
+}
+
+.slate-value {
     color: white;
+    font-size: 16px;
+}
+
+.prompt-number {
+    color: #FF4444;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.action-button {
+    background: linear-gradient(45deg, #FFD700, #FFA500);
+    color: #333;
     border: none;
     padding: 15px 30px;
-    font-size: 1.2em;
+    font-size: 18px;
+    font-weight: bold;
     border-radius: 25px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
-    margin-bottom: 20px;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+    margin: 20px 10px;
 }
 
-#spinButton:hover {
-    background-color: #e5533d;
+.action-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(255, 215, 0, 0.4);
 }
 
-#spinButton:disabled {
-    background-color: #cccccc;
+.action-button:active {
+    transform: translateY(0);
+}
+
+.action-button:disabled {
+    opacity: 0.6;
     cursor: not-allowed;
+    transform: none;
 }
 
-.result-container { /* Styling for the winning number container */
+.prompt-display {
+    margin-top: 30px;
+    padding: 25px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.5s ease;
+}
+
+.prompt-display.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.prompt-text {
+    font-size: 1.1em;
+    line-height: 1.6;
+    font-style: italic;
+    text-align: left;
+    margin-top: 15px;
+}
+
+.prompt-header {
+    color: #FFD700;
+    font-size: 1.3em;
+    font-weight: bold;
+    text-align: center;
     margin-bottom: 10px;
 }
 
-#winningNumberDisplay {
-    font-size: 1.5em;
-    font-weight: bold;
-    color: #007bff; /* Blue color for the number */
-    min-height: 30px; /* Ensure space */
+.click-instruction {
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #FFD700;
+    font-size: 14px;
+    opacity: 0.8;
+    animation: pulse 2s infinite;
 }
 
-.prompt-display-container {
-    margin-top: 10px;
-    padding: 20px;
-    background-color: #fff8e1; /* Light yellow */
-    border: 2px dashed #ff6347;
-    border-radius: 10px;
+@keyframes pulse {
+    0%, 100% { opacity: 0.8; }
+    50% { opacity: 0.4; }
 }
 
-.prompt-display-container h2 {
-    margin-top: 0;
-    color: #ff6347;
-}
-
-#promptDisplay {
-    font-size: 1.1em;
-    min-height: 50px;
-    color: #555;
+@media (max-width: 768px) {
+    .clapperboard-container {
+        width: 320px;
+        height: 240px;
+    }
+    
+    .clapper-top {
+        height: 60px;
+    }
+    
+    .clapper-bottom {
+        top: 60px;
+        height: 180px;
+    }
+    
+    .slate-content {
+        padding: 15px;
+    }
+    
+    .slate-value {
+        font-size: 14px;
+    }
+    
+    .prompt-number {
+        font-size: 20px;
+    }
+    
+    h1 {
+        font-size: 2em;
+    }
 }
