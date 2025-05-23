@@ -1,6 +1,7 @@
 let currentPromptIndex = null;
 let takeCount = 1;
 let isAnimating = false;
+let promptHistory = [];
 
 // Create clap sound effect
 function createClapSound() {
@@ -39,11 +40,9 @@ function getNewPrompt() {
     
     isAnimating = true;
     const clapperTop = document.getElementById('clapperTop');
-    const clickInstruction = document.getElementById('clickInstruction');
     const promptDisplay = document.getElementById('promptDisplay');
     
-    // Hide instruction and prompt display
-    clickInstruction.style.display = 'none';
+    // Hide prompt display
     promptDisplay.classList.remove('show');
     
     // Play clap sound
@@ -60,16 +59,23 @@ function getNewPrompt() {
     currentPromptIndex = Math.floor(Math.random() * prompts.length);
     
     setTimeout(() => {
-        // Update slate
+        // Update slate with current take number
         document.getElementById('promptNumber').textContent = currentPromptIndex + 1;
         document.getElementById('takeNumber').textContent = takeCount;
+        
+        // Add to history
+        promptHistory.push({
+            take: takeCount,
+            promptNum: currentPromptIndex + 1,
+            text: prompts[currentPromptIndex]
+        });
         
         // Show prompt
         showCurrentPrompt();
         
         // Update buttons
         document.getElementById('newPromptBtn').textContent = 'Get Another Prompt';
-        document.getElementById('showPromptBtn').style.display = 'inline-block';
+        document.getElementById('historyBtn').style.display = 'inline-block';
         
         takeCount++;
         isAnimating = false;
@@ -91,11 +97,75 @@ function showCurrentPrompt() {
     const promptHeader = document.getElementById('promptHeader');
     const promptText = document.getElementById('promptText');
     
-    promptHeader.textContent = `Prompt #${currentPromptIndex + 1}`;
+    promptHeader.textContent = `Take ${takeCount - 1} - Prompt #${currentPromptIndex + 1}`;
     promptText.textContent = prompts[currentPromptIndex];
     
     promptDisplay.classList.add('show');
     promptDisplay.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function toggleHistory() {
+    const historyDisplay = document.getElementById('historyDisplay');
+    const historyBtn = document.getElementById('historyBtn');
+    
+    if (historyDisplay.classList.contains('show')) {
+        historyDisplay.classList.remove('show');
+        historyBtn.textContent = 'Show History';
+    } else {
+        updateHistoryDisplay();
+        historyDisplay.classList.add('show');
+        historyBtn.textContent = 'Hide History';
+        historyDisplay.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+}
+
+function updateHistoryDisplay() {
+    const historyList = document.getElementById('historyList');
+    historyList.innerHTML = '';
+    
+    if (promptHistory.length === 0) {
+        historyList.innerHTML = '<p style="text-align: center; color: #999; font-style: italic;">No prompts yet! Get your first prompt above.</p>';
+        return;
+    }
+    
+    // Show most recent first
+    promptHistory.slice().reverse().forEach((item, index) => {
+        const historyItem = document.createElement('div');
+        historyItem.className = 'history-item';
+        historyItem.onclick = () => selectHistoryItem(item);
+        
+        historyItem.innerHTML = `
+            <div class="history-item-header">
+                <span class="history-take">Take ${item.take}</span>
+                <span class="history-prompt-num">Prompt #${item.promptNum}</span>
+            </div>
+            <div class="history-text">${item.text}</div>
+        `;
+        
+        historyList.appendChild(historyItem);
+    });
+}
+
+function selectHistoryItem(item) {
+    const promptDisplay = document.getElementById('promptDisplay');
+    const promptHeader = document.getElementById('promptHeader');
+    const promptText = document.getElementById('promptText');
+    
+    promptHeader.textContent = `Take ${item.take} - Prompt #${item.promptNum}`;
+    promptText.textContent = item.text;
+    
+    promptDisplay.classList.add('show');
+    
+    // Hide history
+    document.getElementById('historyDisplay').classList.remove('show');
+    document.getElementById('historyBtn').textContent = 'Show History';
+    
+    promptDisplay.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function clearHistory() {
+    promptHistory = [];
+    updateHistoryDisplay();
 }
 
 // Add click event to clapper
