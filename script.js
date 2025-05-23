@@ -63,20 +63,21 @@ function getNewPrompt() {
         document.getElementById('promptNumber').textContent = currentPromptIndex + 1;
         document.getElementById('takeNumber').textContent = takeCount;
         
-        // Add to history
+        // Add to history using the same take number shown on slate
         promptHistory.push({
             take: takeCount,
             promptNum: currentPromptIndex + 1,
             text: prompts[currentPromptIndex]
         });
         
-        // Show prompt
+        // Show prompt (this will now match the slate)
         showCurrentPrompt();
         
         // Update buttons
         document.getElementById('newPromptBtn').textContent = 'Get Another Prompt';
         document.getElementById('historyBtn').style.display = 'inline-block';
         
+        // Increment take count AFTER everything is displayed
         takeCount++;
         isAnimating = false;
         
@@ -97,7 +98,9 @@ function showCurrentPrompt() {
     const promptHeader = document.getElementById('promptHeader');
     const promptText = document.getElementById('promptText');
     
-    promptHeader.textContent = `Take ${takeCount - 1} - Prompt #${currentPromptIndex + 1}`;
+    // Use the current take number that matches the slate
+    const currentTakeOnSlate = document.getElementById('takeNumber').textContent;
+    promptHeader.textContent = `Take ${currentTakeOnSlate} - Prompt #${currentPromptIndex + 1}`;
     promptText.textContent = prompts[currentPromptIndex];
     
     promptDisplay.classList.add('show');
