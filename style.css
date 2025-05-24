@@ -154,7 +154,7 @@ h1 {
 }
 
 .slate-label {
-    color: #888;
+    color: #ff6b35;
     font-weight: 500;
     font-size: 13px;
     margin-bottom: 6px;
@@ -170,15 +170,15 @@ h1 {
 }
 
 .prompt-number {
-    color: #ffffff;
+    color: #ff6b35;
     font-size: 36px;
-    font-weight: 300;
+    font-weight: 600;
     letter-spacing: -0.5px;
 }
 
 .action-button {
-    background: #ffffff;
-    color: #000000;
+    background: #ff6b35;
+    color: #ffffff;
     border: none;
     padding: 16px 32px;
     font-size: 15px;
@@ -188,24 +188,26 @@ h1 {
     transition: all 0.2s ease;
     margin: 12px 8px;
     letter-spacing: 0.3px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    box-shadow: 0 2px 8px rgba(255, 107, 53, 0.3);
 }
 
 .action-button:hover {
-    background: #f0f0f0;
+    background: #e55a2b;
     transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    box-shadow: 0 4px 12px rgba(255, 107, 53, 0.4);
 }
 
 .history-btn {
-    background: transparent;
+    background: #2563eb;
     color: #ffffff;
-    border: 1px solid #444;
+    border: 1px solid #2563eb;
+    box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
 }
 
 .history-btn:hover {
-    background: #333;
-    border-color: #555;
+    background: #1d4ed8;
+    border-color: #1d4ed8;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
 }
 
 .history-display {
@@ -276,38 +278,56 @@ h1 {
 .prompt-display {
     margin-top: 60px;
     padding: 50px;
-    background: #2a2a2a;
-    border-radius: 8px;
-    border: 1px solid #333;
+    background: linear-gradient(135deg, #ff6b35, #e55a2b);
+    border-radius: 12px;
+    border: 3px solid #fff;
     opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.4s ease;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+    transform: translateY(40px) scale(0.95);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 
+        0 20px 50px rgba(0,0,0,0.6),
+        0 0 60px rgba(255, 107, 53, 0.3);
+    animation: promptGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes promptGlow {
+    0% { 
+        box-shadow: 
+            0 20px 50px rgba(0,0,0,0.6),
+            0 0 60px rgba(255, 107, 53, 0.3);
+    }
+    100% { 
+        box-shadow: 
+            0 20px 50px rgba(0,0,0,0.6),
+            0 0 80px rgba(255, 107, 53, 0.5);
+    }
 }
 
 .prompt-display.show {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
 }
 
 .prompt-text {
-    font-size: 24px;
-    line-height: 1.5;
+    font-size: 28px;
+    line-height: 1.4;
     text-align: center;
     margin-top: 25px;
     color: #ffffff;
-    font-weight: 400;
+    font-weight: 600;
     letter-spacing: 0.3px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
 }
 
 .prompt-header {
-    color: #888;
-    font-size: 16px;
-    font-weight: 500;
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: 600;
     text-align: center;
     margin-bottom: 20px;
     text-transform: uppercase;
     letter-spacing: 1px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
 }
 
 @media (max-width: 768px) {
