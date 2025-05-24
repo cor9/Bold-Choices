@@ -9,33 +9,49 @@
 <body>
     <div class="container">
         <div class="header-section">
-            <img src="logo.png" alt="Child Actor 101" class="logo" id="logo">
+            <img src="logo.png" alt="Child Actor 101" class="logo">
             <h1>Bold Acting Choices</h1>
         </div>
         
-        <div class="clapperboard-container">
-            <div class="clapperboard">
+        <div class="clapperboard-outer">
+            <div class="hinge">
+                <span class="rivet rivet-top">⚪</span>
+                <span class="rivet rivet-left">⚪</span>
+                <span class="rivet rivet-right">⚪</span>
+            </div>
+            
+            <div class="clapperboard-container">
                 <div class="clapper-top" id="clapperTop">
-                    <div class="clapper-stripes"></div>
-    <div class="clapper-arm"></div>
+                    <div class="stripe"></div>
+                    <div class="stripe"></div>
+                    <div class="stripe"></div>
+                    <div class="stripe"></div>
+                    <div class="stripe"></div>
                 </div>
+                
                 <div class="clapper-bottom">
                     <div class="slate-content">
-                        <div class="slate-line">
-                            <span class="slate-label">PRODUCTION:</span>
-                            <span class="slate-value">Bold Acting Choices</span>
+                        <div class="slate-row">
+                            <div class="slate-field">
+                                <span class="slate-label">PRODUCTION:</span>
+                                <span class="slate-value">Bold Acting Choices</span>
+                            </div>
                         </div>
-                        <div class="slate-line">
-                            <span class="slate-label">SCENE:</span>
-                            <span class="slate-value">Your Next Performance</span>
+                        <div class="slate-row">
+                            <div class="slate-field">
+                                <span class="slate-label">SCENE:</span>
+                                <span class="slate-value">Acting Exercise</span>
+                            </div>
                         </div>
-                        <div class="slate-line">
-                            <span class="slate-label">TAKE:</span>
-                            <span class="slate-value" id="takeNumber">1</span>
-                        </div>
-                        <div class="slate-line">
-                            <span class="slate-label">PROMPT:</span>
-                            <span class="slate-value prompt-number" id="promptNumber">?</span>
+                        <div class="slate-row">
+                            <div class="slate-field">
+                                <span class="slate-label">TAKE:</span>
+                                <span class="slate-value" id="takeNumber">1</span>
+                            </div>
+                            <div class="slate-field">
+                                <span class="slate-label">PROMPT:</span>
+                                <span class="slate-value prompt-number" id="promptNumber">?</span>
+                            </div>
                         </div>
                     </div>
                 </div>
