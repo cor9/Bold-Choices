@@ -50,9 +50,9 @@ h1 {
 .clapperboard-container {
     position: relative;
     width: 400px;
-    height: 300px;
+    height: 320px;
     margin: 0 auto 40px;
-    perspective: 1000px;
+    perspective: 1200px;
 }
 
 .clapperboard {
@@ -69,45 +69,58 @@ h1 {
     background: linear-gradient(45deg, #333, #555);
     border: 3px solid #222;
     border-radius: 8px 8px 0 0;
-    transform-origin: bottom;
-    transition: transform 0.3s ease;
+    transform-origin: bottom center;
+    transition: transform 0.2s ease;
     z-index: 10;
     cursor: pointer;
+    transform: rotateX(-45deg);
 }
 
-.clapper-arm {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 50px;
-    height: 100%;
-    background: #222;
-    border-right: 2px solid #111;
-    border-radius: 6px 0 0 6px;
-    z-index: 1;
-    transform-origin: bottom;
+.clapper-top:hover {
+    transform: rotateX(-35deg);
 }
 
-.clapper-top.clapped {
-    animation: clap 0.8s ease-out;
+.clapper-top.clapping {
+    animation: realisticClap 1.2s ease-out;
 }
 
-.clapper-top.clapped .clapper-arm {
-    animation: clap-arm-animation 0.8s ease-out;
-}
-
-@keyframes clap {
-    0% { transform: rotateX(0deg); }      /* Starts open */
-    40% { transform: rotateX(-85deg); }   /* Slaps down sharply. -90deg might be too flat, -85 gives slight perspective */
-    70% { transform: rotateX(-85deg); }   /* Holds the slap briefly */
-    100% { transform: rotateX(0deg); }     /* Returns to fully open */
-}
-
-@keyframes clap-arm-animation {
-    0% { transform: rotateX(0deg); }      /* Starts open */
-    40% { transform: rotateX(-90deg); }   /* Slaps down (slightly more than clapper-top) */
-    70% { transform: rotateX(-90deg); }   /* Holds the slap */
-    100% { transform: rotateX(0deg); }     /* Returns to fully open with clapper-top */
+@keyframes realisticClap {
+    0% { 
+        transform: rotateX(-45deg);
+    }
+    8% { 
+        transform: rotateX(-55deg);
+    }
+    15% { 
+        transform: rotateX(-65deg);
+    }
+    25% { 
+        transform: rotateX(0deg);
+    }
+    35% { 
+        transform: rotateX(-15deg);
+    }
+    45% { 
+        transform: rotateX(-5deg);
+    }
+    55% { 
+        transform: rotateX(-25deg);
+    }
+    65% { 
+        transform: rotateX(-20deg);
+    }
+    75% { 
+        transform: rotateX(-35deg);
+    }
+    85% { 
+        transform: rotateX(-30deg);
+    }
+    95% { 
+        transform: rotateX(-40deg);
+    }
+    100% { 
+        transform: rotateX(-45deg);
+    }
 }
 
 .clapper-stripes {
@@ -130,11 +143,11 @@ h1 {
     position: absolute;
     top: 80px;
     width: 100%;
-    height: 220px;
+    height: 240px;
     background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
     border: 3px solid #222;
     border-radius: 0 0 8px 8px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.6);
 }
 
 .slate-content {
