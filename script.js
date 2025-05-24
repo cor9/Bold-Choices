@@ -1,4 +1,16 @@
-let currentPromptIndex = null;
+function updateUsageDisplay() {
+    const usageEl = document.getElementById('usageDisplay');
+    if (!usageEl) return;
+    
+    checkTrialStatus(); // Always check trial status
+    
+    if (isPremium) {
+        if (trialEnd) {
+            const daysLeft = Math.ceil((new Date(trialEnd) - new Date()) / (1000 * 60 * 60 * 24));
+            usageEl.innerHTML = `🎉 <strong>Premium Trial</strong> - ${daysLeft} days left!`;
+        } else {
+            usageEl.innerHTML = '✨ <strong>Premium Member</strong> - Unlimited prompts!';
+        }let currentPromptIndex = null;
 let takeCount = 1;
 let isAnimating = false;
 let promptHistory = [];
@@ -7,8 +19,25 @@ let promptHistory = [];
 let dailyPrompts = parseInt(localStorage.getItem('dailyPrompts') || '0');
 let lastDate = localStorage.getItem('lastDate') || new Date().toDateString();
 let isPremium = localStorage.getItem('isPremium') === 'true';
+let trialEnd = localStorage.getItem('trialEnd');
+
+// Check if trial has expired
+function checkTrialStatus() {
+    if (trialEnd) {
+        const now = new Date();
+        const trial = new Date(trialEnd);
+        if (now > trial) {
+            // Trial expired
+            localStorage.setItem('isPremium', 'false');
+            localStorage.removeItem('trialEnd');
+            isPremium = false;
+        }
+    }
+}
 
 function checkDailyLimit() {
+    checkTrialStatus(); // Check trial status first
+    
     const today = new Date().toDateString();
     if (lastDate !== today) {
         dailyPrompts = 0;
