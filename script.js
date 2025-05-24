@@ -1,16 +1,5 @@
-function updateUsageDisplay() {
-    const usageEl = document.getElementById('usageDisplay');
-    if (!usageEl) return;
-    
-    checkTrialStatus(); // Always check trial status
-    
-    if (isPremium) {
-        if (trialEnd) {
-            const daysLeft = Math.ceil((new Date(trialEnd) - new Date()) / (1000 * 60 * 60 * 24));
-            usageEl.innerHTML = `🎉 <strong>Premium Trial</strong> - ${daysLeft} days left!`;
-        } else {
-            usageEl.innerHTML = '✨ <strong>Premium Member</strong> - Unlimited prompts!';
-        }let currentPromptIndex = null;
+// Global variable declarations
+let currentPromptIndex = null;
 let takeCount = 1;
 let isAnimating = false;
 let promptHistory = [];
@@ -20,6 +9,8 @@ let dailyPrompts = parseInt(localStorage.getItem('dailyPrompts') || '0');
 let lastDate = localStorage.getItem('lastDate') || new Date().toDateString();
 let isPremium = localStorage.getItem('isPremium') === 'true';
 let trialEnd = localStorage.getItem('trialEnd');
+
+// Function definitions start here
 
 // Check if trial has expired
 function checkTrialStatus() {
