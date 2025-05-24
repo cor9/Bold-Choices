@@ -75,8 +75,25 @@ h1 {
     cursor: pointer;
 }
 
+.clapper-arm {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 50px;
+    height: 100%;
+    background: #222;
+    border-right: 2px solid #111;
+    border-radius: 6px 0 0 6px;
+    z-index: 1;
+    transform-origin: bottom;
+}
+
 .clapper-top.clapped {
     animation: clap 0.8s ease-out;
+}
+
+.clapper-top.clapped .clapper-arm {
+    animation: clap-arm-animation 0.8s ease-out;
 }
 
 @keyframes clap {
@@ -90,6 +107,20 @@ h1 {
     75% { transform: rotateX(-35deg); }
     85% { transform: rotateX(-45deg); }
     95% { transform: rotateX(-25deg); }
+    100% { transform: rotateX(-30deg); }
+}
+
+@keyframes clap-arm-animation {
+    0% { transform: rotateX(0deg); }
+    15% { transform: rotateX(-80deg); }
+    25% { transform: rotateX(-90deg); }
+    35% { transform: rotateX(-70deg); }
+    45% { transform: rotateX(-85deg); }
+    55% { transform: rotateX(-65deg); }
+    65% { transform: rotateX(-75deg); }
+    75% { transform: rotateX(-55deg); }
+    85% { transform: rotateX(-65deg); }
+    95% { transform: rotateX(-45deg); }
     100% { transform: rotateX(-30deg); }
 }
 
