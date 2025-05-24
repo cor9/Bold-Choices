@@ -47,7 +47,6 @@ function closeUpgradeModal() {
 }
 
 function activateDemo() {
-    // 7-day premium trial
     const trialEnd = new Date();
     trialEnd.setDate(trialEnd.getDate() + 7);
     localStorage.setItem('trialEnd', trialEnd.toISOString());
@@ -59,177 +58,9 @@ function activateDemo() {
 }
 
 function initiatePurchase() {
-    // Replace with your actual payment link
-    window.open('.usage-container {
-    margin: 30px 0;
-    text-align: center;
+    window.open('https://buy.stripe.com/9B614ndWv8HJaUJa4q2wU3l', '_blank');
 }
 
-.usage-display {
-    padding: 15px 25px;
-    border-radius: 8px;
-    margin-bottom: 20px;
-    font-weight: 500;
-    font-size: 16px;
-}
-
-.usage-display.free {
-    background: rgba(244, 228, 166, 0.2);
-    border: 1px solid #f4e4a6;
-    color: #f4e4a6;
-}
-
-.usage-display.premium {
-    background: rgba(139, 90, 107, 0.2);
-    border: 1px solid #8b5a6b;
-    color: #f4e4a6;
-}
-
-.usage-display.limit-reached {
-    background: rgba(220, 53, 69, 0.2);
-    border: 1px solid #dc3545;
-    color: #ff6b6b;
-}
-
-.premium-button {
-    background: linear-gradient(135deg, #8b5a6b, #1e3a5f);
-    color: #ffffff;
-    border: none;
-    padding: 16px 32px;
-    font-size: 16px;
-    font-weight: 600;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(139, 90, 107, 0.3);
-}
-
-.premium-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(139, 90, 107, 0.4);
-}
-
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,0.8);
-    backdrop-filter: blur(5px);
-    align-items: center;
-    justify-content: center;
-}
-
-.modal-content {
-    background: #2a2a2a;
-    margin: auto;
-    padding: 40px;
-    border-radius: 12px;
-    width: 90%;
-    max-width: 500px;
-    color: white;
-    text-align: center;
-    border: 2px solid #f4e4a6;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.8);
-}
-
-.close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-    cursor: pointer;
-    margin-top: -10px;
-}
-
-.close:hover {
-    color: #f4e4a6;
-}
-
-.pricing-card {
-    background: rgba(139, 90, 107, 0.1);
-    padding: 30px;
-    border-radius: 12px;
-    margin: 25px 0;
-    border: 1px solid rgba(244, 228, 166, 0.2);
-}
-
-.pricing-card h3 {
-    color: #f4e4a6;
-    font-size: 24px;
-    margin-bottom: 15px;
-}
-
-.price {
-    font-size: 3em;
-    color: #f4e4a6;
-    font-weight: bold;
-    margin: 20px 0;
-}
-
-.price span {
-    font-size: 0.4em;
-    color: #ccc;
-}
-
-.pricing-card ul {
-    text-align: left;
-    list-style: none;
-    padding: 0;
-    margin: 25px 0;
-}
-
-.pricing-card li {
-    padding: 8px 0;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-}
-
-.subscribe-button {
-    background: linear-gradient(135deg, #8b5a6b, #1e3a5f);
-    color: white;
-    border: none;
-    padding: 16px 32px;
-    border-radius: 8px;
-    font-size: 18px;
-    font-weight: bold;
-    cursor: pointer;
-    width: 100%;
-    margin-top: 15px;
-    transition: all 0.3s ease;
-}
-
-.subscribe-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(139, 90, 107, 0.4);
-}
-
-.trial-button {
-    background: transparent;
-    color: #f4e4a6;
-    border: 1px solid #f4e4a6;
-    padding: 12px 24px;
-    border-radius: 6px;
-    font-size: 14px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.trial-button:hover {
-    background: #f4e4a6;
-    color: #2a2a2a;
-}
-
-.demo-option {
-    margin-top: 20px;
-    font-size: 14px;
-    color: #ccc;
-}');
-}
-
-// Use your actual clapperboard.mp3 file
 function createClapSound() {
     try {
         const audio = new Audio('Clapperboard.mp3');
@@ -246,7 +77,6 @@ function createClapSound() {
 function getNewPrompt() {
     if (isAnimating) return;
     
-    // Check usage limits
     if (!checkDailyLimit()) {
         showUpgradeModal();
         return;
@@ -256,53 +86,43 @@ function getNewPrompt() {
     const clapperTop = document.getElementById('clapperTop');
     const promptDisplay = document.getElementById('promptDisplay');
     
-    // Hide prompt display
     promptDisplay.classList.remove('show');
     
-    // Play clap sound
     try {
         createClapSound();
     } catch (e) {
         console.log('Audio not supported');
     }
     
-    // Trigger clapper animation
     clapperTop.classList.add('clapping');
     
     setTimeout(() => {
         clapperTop.classList.remove('clapping');
     }, 1500);
     
-    // Generate random prompt
     currentPromptIndex = Math.floor(Math.random() * prompts.length);
     
     setTimeout(() => {
-        // Update slate with current take number
         document.getElementById('promptNumber').textContent = currentPromptIndex + 1;
         document.getElementById('takeNumber').textContent = takeCount;
         
-        // Add to history using the same take number shown on slate
         promptHistory.push({
             take: takeCount,
             promptNum: currentPromptIndex + 1,
             text: prompts[currentPromptIndex]
         });
         
-        // Track usage for free users
         if (!isPremium) {
             dailyPrompts++;
             localStorage.setItem('dailyPrompts', dailyPrompts.toString());
         }
         
-        // Show prompt (this will now match the slate)
         showCurrentPrompt();
         
-        // Update buttons and usage display
         document.getElementById('newPromptBtn').textContent = 'Get Another Prompt';
         document.getElementById('historyBtn').style.display = 'inline-block';
         updateUsageDisplay();
         
-        // Increment take count AFTER everything is displayed
         takeCount++;
         isAnimating = false;
     }, 800);
@@ -318,7 +138,6 @@ function showCurrentPrompt() {
     const promptHeader = document.getElementById('promptHeader');
     const promptText = document.getElementById('promptText');
     
-    // Use the current take number that matches the slate
     const currentTakeOnSlate = document.getElementById('takeNumber').textContent;
     promptHeader.textContent = `Take ${currentTakeOnSlate} - Prompt #${currentPromptIndex + 1}`;
     promptText.textContent = prompts[currentPromptIndex];
@@ -351,8 +170,7 @@ function updateHistoryDisplay() {
         return;
     }
     
-    // Show most recent first
-    promptHistory.slice().reverse().forEach((item, index) => {
+    promptHistory.slice().reverse().forEach((item) => {
         const historyItem = document.createElement('div');
         historyItem.className = 'history-item';
         historyItem.onclick = () => selectHistoryItem(item);
@@ -379,7 +197,6 @@ function selectHistoryItem(item) {
     
     promptDisplay.classList.add('show');
     
-    // Hide history
     document.getElementById('historyDisplay').classList.remove('show');
     document.getElementById('historyBtn').textContent = 'Show History';
     
@@ -391,10 +208,8 @@ function clearHistory() {
     updateHistoryDisplay();
 }
 
-// Initialize usage display on page load
 document.addEventListener('DOMContentLoaded', function() {
     updateUsageDisplay();
 });
 
-// Add click event to clapper
 document.getElementById('clapperTop').addEventListener('click', getNewPrompt);
