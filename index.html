@@ -1,66 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Bold Acting Choices - Child Actor 101</title>
-  <link rel="stylesheet" href="style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bold Acting Choices Clapperboard</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="container">
-    
-    <!-- HEADER -->
-    <div class="header-section">
-      <img src="logo.png" alt="Child Actor 101 Logo" class="logo" />
-      <h1>Bold Acting Choices</h1>
-    </div>
-
-    <!-- CLAPPERBOARD -->
-    <div class="clapperboard-outer">
-      <div class="clapperboard-container">
-        <div class="clapper-top" id="clapperTop"></div>
-        <div class="clapper-bottom">
-          <div class="slate-content">
-            <div class="slate-row">
-              <div class="slate-field">
-                <span class="slate-label">Production:</span>
-                <span class="slate-value">Bold Acting Choices</span>
-              </div>
+    <div class="container">
+        <div class="header-section">
+            <img src="logo.png" alt="Child Actor 101" class="logo">
+            <div>
+                <h1>Bold Acting Choices</h1>
+                <div class="subtitle">Generate acting prompts with deep learning</div>
             </div>
-            <div class="slate-row">
-              <div class="slate-field">
-                <span class="slate-label">Scene:</span>
-                <span class="slate-value">Acting Exercise</span>
-              </div>
-            </div>
-            <div class="slate-row">
-              <div class="slate-field">
-                <span class="slate-label">Take:</span>
-                <span class="slate-value" id="takeNumber">1</span>
-              </div>
-              <div class="slate-field">
-                <span class="slate-label">Prompt #:</span>
-                <span class="slate-value prompt-number" id="promptNumber">?</span>
-              </div>
-            </div>
-          </div>
         </div>
-      </div>
+        
+        <div class="clapperboard-outer">
+            <div class="clapperboard-container">
+                <div class="clapper-top" id="clapperTop">
+                    <div class="stripe"></div>
+                    <div class="stripe"></div>
+                    <div class="stripe"></div>
+                    <div class="stripe"></div>
+                    <div class="stripe"></div>
+                </div>
+                
+                <div class="clapper-bottom">
+                    <div class="slate-content">
+                        <div class="slate-row">
+                            <div class="slate-field">
+                                <span class="slate-label">Production:</span>
+                                <span class="slate-value">Bold Acting Choices</span>
+                            </div>
+                        </div>
+                        <div class="slate-row">
+                            <div class="slate-field">
+                                <span class="slate-label">Scene:</span>
+                                <span class="slate-value">Acting Exercise</span>
+                            </div>
+                        </div>
+                        <div class="slate-row">
+                            <div class="slate-field">
+                                <span class="slate-label">Take:</span>
+                                <span class="slate-value" id="takeNumber">1</span>
+                            </div>
+                            <div class="slate-field">
+                                <span class="slate-label">Prompt:</span>
+                                <span class="slate-value prompt-number" id="promptNumber">?</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button class="action-button" id="newPromptBtn" onclick="getNewPrompt()">Get New Prompt</button>
+        <button class="action-button history-btn" id="historyBtn" onclick="toggleHistory()" style="display: none;">Show History</button>
+
+        <div class="history-display" id="historyDisplay">
+            <div class="history-header">Session History</div>
+            <div class="history-list" id="historyList"></div>
+            <button class="action-button" onclick="clearHistory()">Clear History</button>
+        </div>
+
+        <div class="prompt-display" id="promptDisplay">
+            <div class="prompt-header" id="promptHeader"></div>
+            <div class="prompt-text" id="promptText"></div>
+        </div>
     </div>
 
-    <!-- BUTTON -->
-    <button class="action-button" id="newPromptBtn">Get New Prompt</button>
-
-    <!-- PROMPT DISPLAY -->
-    <div class="prompt-display" id="promptDisplay">
-      <div class="prompt-header" id="promptHeader">Your Prompt</div>
-      <div class="prompt-text" id="promptText">Click the button to get a new acting challenge!</div>
-    </div>
-  </div>
-
-  <!-- SCRIPTS -->
-  <script src="prompts.js"></script>
-  <script src="script.js"></script>
+    <script src="prompts.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
