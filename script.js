@@ -3,36 +3,43 @@ let takeCount = 1;
 let isAnimating = false;
 let promptHistory = [];
 
-// Create clap sound effect
+// Create enhanced clap sound effect
 function createClapSound() {
-    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-    
-    // Create a sharp, snappy sound
-    const oscillator = audioContext.createOscillator();
-    const gainNode = audioContext.createGain();
-    const noiseBuffer = audioContext.createBuffer(1, audioContext.sampleRate * 0.1, audioContext.sampleRate);
-    const noiseSource = audioContext.createBufferSource();
-    
-    // Generate white noise for the clap
-    const output = noiseBuffer.getChannelData(0);
-    for (let i = 0; i < noiseBuffer.length; i++) {
-        output[i] = Math.random() * 2 - 1;
+    try {
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        
+        // Create multiple sound layers for more realistic clap
+        const createNoise = (frequency, duration, volume) => {
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            const filter = audioContext.createBiquadFilter();
+            
+            oscillator.type = 'white';
+            oscillator.frequency.setValueAtTime(frequency, audioContext.currentTime);
+            
+            filter.type = 'highpass';
+            filter.frequency.setValueAtTime(800, audioContext.currentTime);
+            
+            gainNode.gain.setValueAtTime(0, audioContext.currentTime);
+            gainNode.gain.linearRampToValueAtTime(volume, audioContext.currentTime + 0.01);
+            gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + duration);
+            
+            oscillator.connect(filter);
+            filter.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + duration);
+        };
+        
+        // Sharp clap sound
+        createNoise(1000, 0.1, 0.4);
+        // Wood knock sound
+        setTimeout(() => createNoise(200, 0.05, 0.2), 50);
+        
+    } catch (e) {
+        console.log('Audio not supported');
     }
-    
-    noiseSource.buffer = noiseBuffer;
-    
-    // Create sharp attack and quick decay
-    gainNode.gain.setValueAtTime(0, audioContext.currentTime);
-    gainNode.gain.linearRampToValueAtTime(0.3, audioContext.currentTime + 0.01);
-    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
-    
-    // Connect the nodes
-    noiseSource.connect(gainNode);
-    gainNode.connect(audioContext.destination);
-    
-    // Play the sound
-    noiseSource.start(audioContext.currentTime);
-    noiseSource.stop(audioContext.currentTime + 0.1);
 }
 
 function getNewPrompt() {
@@ -58,7 +65,7 @@ function getNewPrompt() {
     // Remove animation class after it completes
     setTimeout(() => {
         clapperTop.classList.remove('clapping');
-    }, 1200);
+    }, 1400);
     
     // Generate random prompt
     currentPromptIndex = Math.floor(Math.random() * prompts.length);
