@@ -1,79 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bold Acting Choices Clapperboard</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bold Acting Choices - Child Actor 101</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <div class="header-section">
-            <img src="logo.png" alt="Child Actor 101" class="logo">
-            <h1>Bold Acting Choices</h1>
-        </div>
-        
-        <div class="clapperboard-outer">
-            <div class="hinge">
-                <span class="rivet rivet-top">⚪</span>
-                <span class="rivet rivet-left">⚪</span>
-                <span class="rivet rivet-right">⚪</span>
-            </div>
-            
-            <div class="clapperboard-container">
-                <div class="clapper-top" id="clapperTop">
-                    <div class="stripe"></div>
-                    <div class="stripe"></div>
-                    <div class="stripe"></div>
-                    <div class="stripe"></div>
-                    <div class="stripe"></div>
-                </div>
-                
-                <div class="clapper-bottom">
-                    <div class="slate-content">
-                        <div class="slate-row">
-                            <div class="slate-field">
-                                <span class="slate-label">PRODUCTION:</span>
-                                <span class="slate-value">Bold Acting Choices</span>
-                            </div>
-                        </div>
-                        <div class="slate-row">
-                            <div class="slate-field">
-                                <span class="slate-label">SCENE:</span>
-                                <span class="slate-value">Acting Exercise</span>
-                            </div>
-                        </div>
-                        <div class="slate-row">
-                            <div class="slate-field">
-                                <span class="slate-label">TAKE:</span>
-                                <span class="slate-value" id="takeNumber">1</span>
-                            </div>
-                            <div class="slate-field">
-                                <span class="slate-label">PROMPT:</span>
-                                <span class="slate-value prompt-number" id="promptNumber">?</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+  <div class="container">
 
-        <button class="action-button" id="newPromptBtn" onclick="getNewPrompt()">Get New Prompt</button>
-        <button class="action-button history-btn" id="historyBtn" onclick="toggleHistory()" style="display: none;">Show History</button>
-
-        <div class="history-display" id="historyDisplay">
-            <div class="history-header">Session History</div>
-            <div class="history-list" id="historyList"></div>
-            <button class="action-button" onclick="clearHistory()">Clear History</button>
-        </div>
-
-        <div class="prompt-display" id="promptDisplay">
-            <div class="prompt-header" id="promptHeader"></div>
-            <div class="prompt-text" id="promptText"></div>
-        </div>
+    <!-- HEADER -->
+    <div class="header-section">
+      <img src="logo.png" alt="Child Actor 101 Logo" class="logo" />
+      <h1>Bold Acting Choices</h1>
     </div>
 
-    <script src="prompts.js"></script>
-    <script src="script.js"></script>
+    <!-- CLAPPERBOARD -->
+    <div class="clapperboard">
+    </div>
+    <div class="slate">
+      <div class="prompt-number" id="promptNumber">?</div>
+      <div class="prompt-header">Your Prompt</div>
+      <div class="prompt-text" id="promptText">Click the button to get your next bold acting challenge!</div>
+    </div>
+
+    <!-- BUTTONS -->
+    <div class="action-buttons">
+      <button class="action-button" id="newPromptBtn" onclick="getNewPrompt()">Get New Prompt</button>
+      <button class="action-button history-button" id="historyBtn" onclick="toggleHistory()" style="display: none;">Show History</button>
+    </div>
+
+    <!-- HISTORY -->
+    <div class="history-section" id="historyDisplay">
+      <div class="history-title">Session History</div>
+      <div id="historyList"></div>
+      <button class="action-button" onclick="clearHistory()">Clear History</button>
+    </div>
+
+  </div>
+
+  <script src="prompts.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
