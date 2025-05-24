@@ -45,6 +45,8 @@ h1 {
     height: 80px;
     border-radius: 12px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    background: transparent;
+    filter: drop-shadow(0 2px 8px rgba(0,0,0,0.3));
 }
 
 .clapperboard-container {
@@ -52,7 +54,8 @@ h1 {
     width: 400px;
     height: 320px;
     margin: 0 auto 40px;
-    perspective: 1200px;
+    perspective: 1000px;
+    perspective-origin: center bottom;
 }
 
 .clapperboard {
@@ -70,57 +73,19 @@ h1 {
     border: 3px solid #222;
     border-radius: 8px 8px 0 0;
     transform-origin: bottom center;
-    transition: transform 0.2s ease;
+    transition: transform 0.1s ease-out;
     z-index: 10;
     cursor: pointer;
-    transform: rotateX(-45deg);
+    transform: rotateX(0deg); /* Initial open position */
 }
 
 .clapper-top:hover {
-    transform: rotateX(-35deg);
+    transform: rotateX(-5deg);
 }
 
 .clapper-top.clapping {
-    animation: realisticClap 1.2s ease-out;
-}
-
-@keyframes realisticClap {
-    0% { 
-        transform: rotateX(-45deg);
-    }
-    8% { 
-        transform: rotateX(-55deg);
-    }
-    15% { 
-        transform: rotateX(-65deg);
-    }
-    25% { 
-        transform: rotateX(0deg);
-    }
-    35% { 
-        transform: rotateX(-15deg);
-    }
-    45% { 
-        transform: rotateX(-5deg);
-    }
-    55% { 
-        transform: rotateX(-25deg);
-    }
-    65% { 
-        transform: rotateX(-20deg);
-    }
-    75% { 
-        transform: rotateX(-35deg);
-    }
-    85% { 
-        transform: rotateX(-30deg);
-    }
-    95% { 
-        transform: rotateX(-40deg);
-    }
-    100% { 
-        transform: rotateX(-45deg);
-    }
+    transform: rotateX(75deg); /* Slammed closed position */
+    transition: transform 0.2s ease-out;
 }
 
 .clapper-stripes {
