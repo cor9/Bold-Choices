@@ -59,13 +59,13 @@ function getNewPrompt() {
         console.log('Audio not supported');
     }
     
-    // Trigger clapper animation with NEW class name
+    // Trigger clapper animation - simple slam down
     clapperTop.classList.add('clapping');
     
-    // Remove animation class after it completes
+    // Reset clapper after a short time
     setTimeout(() => {
         clapperTop.classList.remove('clapping');
-    }, 1400);
+    }, 500);
     
     // Generate random prompt
     currentPromptIndex = Math.floor(Math.random() * prompts.length);
