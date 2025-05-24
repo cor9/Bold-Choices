@@ -75,16 +75,6 @@ function closeUpgradeModal() {
     document.getElementById('upgradeModal').style.display = 'none';
 }
 
-function activateDemo() {
-    const trialEnd = new Date();
-    trialEnd.setDate(trialEnd.getDate() + 7);
-    localStorage.setItem('trialEnd', trialEnd.toISOString());
-    localStorage.setItem('isPremium', 'true');
-    isPremium = true;
-    updateUsageDisplay();
-    closeUpgradeModal();
-    alert('🎉 7-day Premium trial activated! Enjoy unlimited prompts!');
-}
 
 function initiatePurchase() {
     window.open('https://buy.stripe.com/9B614ndWv8HJaUJa4q2wU3l', '_blank');
