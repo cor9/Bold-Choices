@@ -5,10 +5,8 @@
 }
 
 body {
-    font-family: 'Comic Sans MS', 'Arial', sans-serif;
-    background: linear-gradient(135deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4);
-    background-size: 400% 400%;
-    animation: gradientShift 8s ease infinite;
+    font-family: 'Inter', 'Helvetica Neue', sans-serif;
+    background: #0a0a0a;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -16,12 +14,6 @@ body {
     justify-content: center;
     color: white;
     padding: 20px;
-}
-
-@keyframes gradientShift {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
 }
 
 .container {
@@ -34,41 +26,36 @@ h1 {
     font-size: 4em;
     font-weight: 900;
     margin-bottom: 30px;
-    color: #fff;
-    text-shadow: 4px 4px 8px rgba(0,0,0,0.3);
-    animation: titleBounce 2s ease-in-out infinite alternate;
-}
-
-@keyframes titleBounce {
-    0% { transform: scale(1); }
-    100% { transform: scale(1.05); }
+    color: #ffffff;
+    text-shadow: none;
+    letter-spacing: -2px;
 }
 
 .header-section {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 30px;
-    margin-bottom: 40px;
+    gap: 40px;
+    margin-bottom: 50px;
 }
 
 .logo {
-    width: 120px;
-    height: 120px;
+    width: 140px;
+    height: 140px;
     border-radius: 20px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.8);
     background: transparent;
-    transition: transform 0.3s ease;
+    transition: transform 0.2s ease;
 }
 
 .logo:hover {
-    transform: scale(1.1) rotate(5deg);
+    transform: scale(1.05);
 }
 
 .clapperboard-outer {
     position: relative;
     width: 500px;
-    margin: 0 auto 40px;
+    margin: 0 auto 50px;
     perspective: 1500px;
 }
 
@@ -83,9 +70,9 @@ h1 {
     position: absolute;
     width: 100%;
     height: 100px;
-    background: #2c2c2c;
-    border: 4px solid #000;
-    border-radius: 12px 12px 0 0;
+    background: #1a1a1a;
+    border: 3px solid #333;
+    border-radius: 8px 8px 0 0;
     transform-origin: bottom center;
     cursor: pointer;
     display: flex;
@@ -93,38 +80,39 @@ h1 {
     align-items: center;
     overflow: hidden;
     z-index: 10;
-    transition: transform 0.2s ease;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.4);
-    padding: 0 10px;
+    transition: transform 0.15s ease;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.7);
 }
 
 .clapper-top:hover {
-    transform: rotateX(-10deg);
+    transform: rotateX(-8deg);
 }
 
 .clapper-top.clapping {
-    animation: realClap 1.2s ease-out;
+    animation: snapDown 0.8s ease-out;
 }
 
-@keyframes realClap {
+@keyframes snapDown {
     0% { transform: rotateX(0deg); }
-    20% { transform: rotateX(-75deg); }
-    40% { transform: rotateX(-65deg); }
-    60% { transform: rotateX(-70deg); }
-    80% { transform: rotateX(-67deg); }
-    100% { transform: rotateX(-68deg); }
+    25% { transform: rotateX(-70deg); }
+    50% { transform: rotateX(-65deg); }
+    75% { transform: rotateX(-68deg); }
+    100% { transform: rotateX(-67deg); }
 }
 
 .stripe {
-    width: 18%;
+    width: 20%;
     height: 100%;
-    background: white;
-    border-left: 2px solid #000;
-    border-right: 2px solid #000;
+    background: #ffffff;
+    border-right: 1px solid #000;
 }
 
-.stripe:nth-child(even) {
-    background: #000;
+.stripe:nth-child(odd) {
+    background: #000000;
+}
+
+.stripe:last-child {
+    border-right: none;
 }
 
 .clapper-bottom {
@@ -132,10 +120,10 @@ h1 {
     top: 100px;
     width: 100%;
     height: 250px;
-    background: linear-gradient(145deg, #444, #222);
-    border: 4px solid #000;
-    border-radius: 0 0 12px 12px;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+    background: #1a1a1a;
+    border: 3px solid #333;
+    border-radius: 0 0 8px 8px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.8);
 }
 
 .slate-content {
@@ -149,8 +137,8 @@ h1 {
 
 .slate-row {
     display: flex;
-    gap: 25px;
-    border-bottom: 3px solid #fff;
+    gap: 30px;
+    border-bottom: 2px solid #333;
     padding-bottom: 20px;
     align-items: center;
 }
@@ -163,76 +151,73 @@ h1 {
 }
 
 .slate-label {
-    color: #FFD700;
-    font-weight: bold;
+    color: #ff6b35;
+    font-weight: 700;
     font-size: 16px;
-    font-family: 'Arial Black', sans-serif;
+    font-family: 'Inter', sans-serif;
     margin-bottom: 8px;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
-}
-
-.slate-value {
-    color: white;
-    font-size: 20px;
-    font-family: 'Arial Black', sans-serif;
-    font-weight: bold;
-}
-
-.prompt-number {
-    color: #FF4444;
-    font-size: 36px;
-    font-weight: 900;
-    text-shadow: 3px 3px 6px rgba(0,0,0,0.7);
-    animation: pulse 2s ease-in-out infinite;
-}
-
-@keyframes pulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.1); }
-}
-
-.action-button {
-    background: linear-gradient(45deg, #ff6b6b, #ffa500);
-    color: white;
-    border: none;
-    padding: 20px 40px;
-    font-size: 24px;
-    font-weight: 900;
-    border-radius: 50px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 8px 20px rgba(255, 107, 107, 0.4);
-    margin: 20px 15px;
     text-transform: uppercase;
     letter-spacing: 1px;
 }
 
+.slate-value {
+    color: #ffffff;
+    font-size: 22px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+}
+
+.prompt-number {
+    color: #ff6b35;
+    font-size: 48px;
+    font-weight: 900;
+    text-shadow: none;
+}
+
+.action-button {
+    background: #ff6b35;
+    color: #ffffff;
+    border: none;
+    padding: 20px 40px;
+    font-size: 18px;
+    font-weight: 700;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin: 15px 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
+}
+
 .action-button:hover {
-    transform: translateY(-5px) scale(1.05);
-    box-shadow: 0 15px 35px rgba(255, 107, 107, 0.6);
+    background: #e55a2b;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4);
 }
 
 .action-button:active {
-    transform: translateY(-2px) scale(1.02);
+    transform: translateY(0);
 }
 
 .history-btn {
-    background: linear-gradient(45deg, #4ecdc4, #45b7d1);
-    box-shadow: 0 8px 20px rgba(78, 205, 196, 0.4);
+    background: #2563eb;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
 }
 
 .history-btn:hover {
-    box-shadow: 0 15px 35px rgba(78, 205, 196, 0.6);
+    background: #1d4ed8;
+    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
 }
 
 .history-display {
-    margin-top: 30px;
+    margin-top: 40px;
     padding: 30px;
-    background: rgba(255, 255, 255, 0.95);
-    border-radius: 25px;
-    border: 4px solid #ff6b6b;
+    background: #1a1a1a;
+    border-radius: 12px;
+    border: 2px solid #333;
     display: none;
-    color: #333;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.8);
 }
 
 .history-display.show {
@@ -240,12 +225,13 @@ h1 {
 }
 
 .history-header {
-    color: #ff6b6b;
-    font-size: 2em;
-    font-weight: 900;
+    color: #ffffff;
+    font-size: 24px;
+    font-weight: 700;
     text-align: center;
     margin-bottom: 25px;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 .history-list {
@@ -255,18 +241,18 @@ h1 {
 }
 
 .history-item {
-    background: linear-gradient(135deg, #ff6b6b, #ffa500);
+    background: #262626;
     margin-bottom: 15px;
     padding: 20px;
-    border-radius: 15px;
+    border-radius: 8px;
+    border-left: 4px solid #ff6b35;
     cursor: pointer;
-    transition: all 0.3s ease;
-    color: white;
+    transition: all 0.2s ease;
 }
 
 .history-item:hover {
-    transform: translateY(-3px) scale(1.02);
-    box-shadow: 0 10px 25px rgba(255, 107, 107, 0.4);
+    background: #333333;
+    transform: translateX(4px);
 }
 
 .history-item-header {
@@ -276,73 +262,60 @@ h1 {
     margin-bottom: 10px;
 }
 
-.history-take, .history-prompt-num {
-    font-size: 18px;
-    font-weight: 900;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+.history-take {
+    color: #ff6b35;
+    font-weight: 700;
+    font-size: 16px;
+}
+
+.history-prompt-num {
+    color: #2563eb;
+    font-weight: 700;
+    font-size: 16px;
 }
 
 .history-text {
+    color: #e5e5e5;
     font-size: 16px;
     line-height: 1.5;
-    font-weight: 600;
+    font-weight: 400;
 }
 
 .prompt-display {
-    margin-top: 40px;
-    padding: 40px;
-    background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
-    border-radius: 30px;
-    border: 6px solid #fff;
-    box-shadow: 
-        0 15px 40px rgba(0,0,0,0.3),
-        0 0 60px rgba(255, 107, 107, 0.3);
+    margin-top: 50px;
+    padding: 50px;
+    background: #1a1a1a;
+    border-radius: 12px;
+    border: 3px solid #ff6b35;
     opacity: 0;
-    transform: translateY(50px) scale(0.9);
-    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-    animation: promptGlow 3s ease-in-out infinite alternate;
-}
-
-@keyframes promptGlow {
-    0% { box-shadow: 0 15px 40px rgba(0,0,0,0.3), 0 0 60px rgba(255, 107, 107, 0.3); }
-    100% { box-shadow: 0 15px 40px rgba(0,0,0,0.3), 0 0 80px rgba(78, 205, 196, 0.5); }
+    transform: translateY(30px);
+    transition: all 0.4s ease;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.8);
 }
 
 .prompt-display.show {
     opacity: 1;
-    transform: translateY(0) scale(1);
+    transform: translateY(0);
 }
 
 .prompt-text {
-    font-size: 2em;
+    font-size: 28px;
     line-height: 1.4;
     text-align: center;
     margin-top: 25px;
-    color: white;
-    font-weight: 900;
-    text-shadow: 3px 3px 6px rgba(0,0,0,0.5);
-    letter-spacing: 1px;
-    animation: textShine 2s ease-in-out infinite alternate;
-}
-
-@keyframes textShine {
-    0% { text-shadow: 3px 3px 6px rgba(0,0,0,0.5); }
-    100% { text-shadow: 3px 3px 6px rgba(0,0,0,0.5), 0 0 20px rgba(255,255,255,0.5); }
+    color: #ffffff;
+    font-weight: 600;
+    letter-spacing: 0.5px;
 }
 
 .prompt-header {
-    color: white;
-    font-size: 2.5em;
-    font-weight: 900;
+    color: #ff6b35;
+    font-size: 32px;
+    font-weight: 800;
     text-align: center;
     margin-bottom: 20px;
-    text-shadow: 3px 3px 6px rgba(0,0,0,0.5);
-    animation: headerBounce 1.5s ease-in-out infinite alternate;
-}
-
-@keyframes headerBounce {
-    0% { transform: scale(1); }
-    100% { transform: scale(1.02); }
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 @media (max-width: 768px) {
@@ -373,33 +346,33 @@ h1 {
     }
     
     .prompt-number {
-        font-size: 28px;
+        font-size: 36px;
     }
     
     h1 {
-        font-size: 2.5em;
+        font-size: 2.8em;
     }
     
     .header-section {
         flex-direction: column;
-        gap: 20px;
+        gap: 25px;
     }
     
     .logo {
-        width: 100px;
-        height: 100px;
+        width: 120px;
+        height: 120px;
     }
     
     .prompt-text {
-        font-size: 1.5em;
+        font-size: 24px;
     }
     
     .prompt-header {
-        font-size: 2em;
+        font-size: 28px;
     }
     
     .action-button {
-        font-size: 20px;
-        padding: 15px 30px;
+        font-size: 16px;
+        padding: 16px 32px;
     }
 }
