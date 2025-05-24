@@ -3,38 +3,75 @@ let takeCount = 1;
 let isAnimating = false;
 let promptHistory = [];
 
-// Create enhanced clap sound effect
+// Create realistic clapper sound effect
 function createClapSound() {
     try {
         const audioContext = new (window.AudioContext || window.webkitAudioContext)();
         
-        const createNoise = (frequency, duration, volume) => {
+        // Main sharp clap sound
+        const createClap = () => {
             const oscillator = audioContext.createOscillator();
             const gainNode = audioContext.createGain();
             const filter = audioContext.createBiquadFilter();
             
-            oscillator.type = 'white';
-            oscillator.frequency.setValueAtTime(frequency, audioContext.currentTime);
+            // Sharp noise burst
+            oscillator.type = 'square';
+            oscillator.frequency.setValueAtTime(2000, audioContext.currentTime);
             
+            // High-pass filter for that crisp sound
             filter.type = 'highpass';
-            filter.frequency.setValueAtTime(800, audioContext.currentTime);
+            filter.frequency.setValueAtTime(1500, audioContext.currentTime);
+            filter.Q.setValueAtTime(0.5, audioContext.currentTime);
             
+            // Very sharp attack and quick decay
             gainNode.gain.setValueAtTime(0, audioContext.currentTime);
-            gainNode.gain.linearRampToValueAtTime(volume, audioContext.currentTime + 0.01);
-            gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + duration);
+            gainNode.gain.linearRampToValueAtTime(0.8, audioContext.currentTime + 0.001);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.08);
             
             oscillator.connect(filter);
             filter.connect(gainNode);
             gainNode.connect(audioContext.destination);
             
             oscillator.start(audioContext.currentTime);
-            oscillator.stop(audioContext.currentTime + duration);
+            oscillator.stop(audioContext.currentTime + 0.08);
         };
         
-        // Sharp clap sound
-        createNoise(1000, 0.1, 0.4);
-        // Wood knock sound
-        setTimeout(() => createNoise(200, 0.05, 0.2), 50);
+        // Wood knock/thud sound
+        const createWoodSound = () => {
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            const filter = audioContext.createBiquadFilter();
+            
+            oscillator.type = 'triangle';
+            oscillator.frequency.setValueAtTime(150, audioContext.currentTime);
+            
+            filter.type = 'lowpass';
+            filter.frequency.setValueAtTime(800, audioContext.currentTime);
+            
+            gainNode.gain.setValueAtTime(0, audioContext.currentTime);
+            gainNode.gain.linearRampToValueAtTime(0.6, audioContext.currentTime + 0.005);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.15);
+            
+            oscillator.connect(filter);
+            filter.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + 0.15);
+        };
+        
+        // Play the main clap
+        createClap();
+        
+        // Add the wood thud slightly after
+        setTimeout(() => createWoodSound(), 10);
+        
+        // Add a subtle echo/reverb effect
+        setTimeout(() => {
+            const echoGain = audioContext.createGain();
+            echoGain.gain.setValueAtTime(0.2, audioContext.currentTime);
+            createClap();
+        }, 25);
         
     } catch (e) {
         console.log('Audio not supported');
@@ -63,7 +100,7 @@ function getNewPrompt() {
     
     setTimeout(() => {
         clapperTop.classList.remove('clapping');
-    }, 600);
+    }, 1200);
     
     // Generate random prompt
     currentPromptIndex = Math.floor(Math.random() * prompts.length);
