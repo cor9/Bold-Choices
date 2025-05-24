@@ -52,9 +52,10 @@ function getNewPrompt() {
         console.log('Audio not supported');
     }
     
-    // Trigger clapper animation
+    // Trigger clapper animation with NEW class name
     clapperTop.classList.add('clapping');
     
+    // Remove animation class after it completes
     setTimeout(() => {
         clapperTop.classList.remove('clapping');
     }, 1200);
