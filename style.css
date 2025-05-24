@@ -75,22 +75,39 @@ h1 {
     cursor: pointer;
 }
 
+.clapper-arm {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 50px;
+    height: 100%;
+    background: #222;
+    border-right: 2px solid #111;
+    border-radius: 6px 0 0 6px;
+    z-index: 1;
+    transform-origin: bottom;
+}
+
 .clapper-top.clapped {
     animation: clap 0.8s ease-out;
 }
 
+.clapper-top.clapped .clapper-arm {
+    animation: clap-arm-animation 0.8s ease-out;
+}
+
 @keyframes clap {
-    0% { transform: rotateX(0deg); }
-    15% { transform: rotateX(-60deg); }
-    25% { transform: rotateX(-70deg); }
-    35% { transform: rotateX(-50deg); }
-    45% { transform: rotateX(-65deg); }
-    55% { transform: rotateX(-45deg); }
-    65% { transform: rotateX(-55deg); }
-    75% { transform: rotateX(-35deg); }
-    85% { transform: rotateX(-45deg); }
-    95% { transform: rotateX(-25deg); }
-    100% { transform: rotateX(-30deg); }
+    0% { transform: rotateX(0deg); }      /* Starts open */
+    40% { transform: rotateX(-85deg); }   /* Slaps down sharply. -90deg might be too flat, -85 gives slight perspective */
+    70% { transform: rotateX(-85deg); }   /* Holds the slap briefly */
+    100% { transform: rotateX(0deg); }     /* Returns to fully open */
+}
+
+@keyframes clap-arm-animation {
+    0% { transform: rotateX(0deg); }      /* Starts open */
+    40% { transform: rotateX(-90deg); }   /* Slaps down (slightly more than clapper-top) */
+    70% { transform: rotateX(-90deg); }   /* Holds the slap */
+    100% { transform: rotateX(0deg); }     /* Returns to fully open with clapper-top */
 }
 
 .clapper-stripes {
