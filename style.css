@@ -294,35 +294,61 @@ h1 {
 
 .prompt-display {
     margin-top: 30px;
-    padding: 25px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 15px;
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 30px;
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.15), rgba(255, 68, 68, 0.1));
+    border-radius: 20px;
+    backdrop-filter: blur(15px);
+    border: 2px solid rgba(255, 215, 0, 0.3);
+    box-shadow: 
+        0 10px 30px rgba(0,0,0,0.3),
+        0 0 40px rgba(255, 215, 0, 0.1);
     opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.5s ease;
+    transform: translateY(30px) scale(0.95);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .prompt-display.show {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
 }
 
 .prompt-text {
-    font-size: 1.1em;
-    line-height: 1.6;
+    font-size: 1.4em;
+    line-height: 1.7;
     font-style: italic;
-    text-align: left;
-    margin-top: 15px;
+    text-align: center;
+    margin-top: 20px;
+    color: #f8f9fa;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    background: linear-gradient(135deg, #ffffff, #e8e8e8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: textGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes textGlow {
+    0% { 
+        filter: drop-shadow(0 0 5px rgba(255,215,0,0.3)); 
+    }
+    100% { 
+        filter: drop-shadow(0 0 15px rgba(255,215,0,0.6)); 
+    }
 }
 
 .prompt-header {
     color: #FFD700;
-    font-size: 1.3em;
+    font-size: 1.6em;
     font-weight: bold;
     text-align: center;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    background: linear-gradient(45deg, #FFD700, #FFA500);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 @media (max-width: 768px) {
@@ -368,5 +394,13 @@ h1 {
     .logo {
         width: 60px;
         height: 60px;
+    }
+    
+    .prompt-text {
+        font-size: 1.2em;
+    }
+    
+    .prompt-header {
+        font-size: 1.4em;
     }
 }
