@@ -3,10 +3,70 @@ let takeCount = 1;
 let isAnimating = false;
 let promptHistory = [];
 
+// Monetization variables
+let dailyPrompts = parseInt(localStorage.getItem('dailyPrompts') || '0');
+let lastDate = localStorage.getItem('lastDate') || new Date().toDateString();
+let isPremium = localStorage.getItem('isPremium') === 'true';
+
+function checkDailyLimit() {
+    const today = new Date().toDateString();
+    if (lastDate !== today) {
+        dailyPrompts = 0;
+        localStorage.setItem('dailyPrompts', '0');
+        localStorage.setItem('lastDate', today);
+        lastDate = today;
+    }
+    return isPremium || dailyPrompts < 3;
+}
+
+function updateUsageDisplay() {
+    const usageEl = document.getElementById('usageDisplay');
+    if (!usageEl) return;
+    
+    if (isPremium) {
+        usageEl.innerHTML = '✨ <strong>Premium Member</strong> - Unlimited prompts!';
+        usageEl.className = 'usage-display premium';
+    } else {
+        const remaining = 3 - dailyPrompts;
+        usageEl.innerHTML = `Free prompts remaining today: <strong>${remaining}</strong>`;
+        usageEl.className = 'usage-display free';
+        
+        if (remaining === 0) {
+            usageEl.innerHTML = '❌ <strong>Daily limit reached!</strong> Upgrade for unlimited prompts.';
+            usageEl.className = 'usage-display limit-reached';
+        }
+    }
+}
+
+function showUpgradeModal() {
+    document.getElementById('upgradeModal').style.display = 'flex';
+}
+
+function closeUpgradeModal() {
+    document.getElementById('upgradeModal').style.display = 'none';
+}
+
+function activateDemo() {
+    // 7-day premium trial
+    const trialEnd = new Date();
+    trialEnd.setDate(trialEnd.getDate() + 7);
+    localStorage.setItem('trialEnd', trialEnd.toISOString());
+    localStorage.setItem('isPremium', 'true');
+    isPremium = true;
+    updateUsageDisplay();
+    closeUpgradeModal();
+    alert('🎉 7-day Premium trial activated! Enjoy unlimited prompts!');
+}
+
+function initiatePurchase() {
+    // Replace with your actual payment link
+    window.open('https://buy.stripe.com/your-payment-link', '_blank');
+}
+
 // Use your actual clapperboard.mp3 file
 function createClapSound() {
     try {
-        const audio = new Audio('clapperboard.mp3');
+        const audio = new Audio('Clapperboard.mp3');
         audio.volume = 0.7;
         audio.currentTime = 0;
         audio.play().catch(e => {
@@ -19,6 +79,12 @@ function createClapSound() {
 
 function getNewPrompt() {
     if (isAnimating) return;
+    
+    // Check usage limits
+    if (!checkDailyLimit()) {
+        showUpgradeModal();
+        return;
+    }
     
     isAnimating = true;
     const clapperTop = document.getElementById('clapperTop');
@@ -39,7 +105,7 @@ function getNewPrompt() {
     
     setTimeout(() => {
         clapperTop.classList.remove('clapping');
-    }, 1200);
+    }, 1500);
     
     // Generate random prompt
     currentPromptIndex = Math.floor(Math.random() * prompts.length);
@@ -56,12 +122,19 @@ function getNewPrompt() {
             text: prompts[currentPromptIndex]
         });
         
+        // Track usage for free users
+        if (!isPremium) {
+            dailyPrompts++;
+            localStorage.setItem('dailyPrompts', dailyPrompts.toString());
+        }
+        
         // Show prompt (this will now match the slate)
         showCurrentPrompt();
         
-        // Update buttons
+        // Update buttons and usage display
         document.getElementById('newPromptBtn').textContent = 'Get Another Prompt';
         document.getElementById('historyBtn').style.display = 'inline-block';
+        updateUsageDisplay();
         
         // Increment take count AFTER everything is displayed
         takeCount++;
@@ -151,6 +224,11 @@ function clearHistory() {
     promptHistory = [];
     updateHistoryDisplay();
 }
+
+// Initialize usage display on page load
+document.addEventListener('DOMContentLoaded', function() {
+    updateUsageDisplay();
+});
 
 // Add click event to clapper
 document.getElementById('clapperTop').addEventListener('click', getNewPrompt);
