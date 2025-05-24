@@ -8,7 +8,6 @@ function createClapSound() {
     try {
         const audioContext = new (window.AudioContext || window.webkitAudioContext)();
         
-        // Create multiple sound layers for more realistic clap
         const createNoise = (frequency, duration, volume) => {
             const oscillator = audioContext.createOscillator();
             const gainNode = audioContext.createGain();
@@ -59,13 +58,12 @@ function getNewPrompt() {
         console.log('Audio not supported');
     }
     
-    // Trigger clapper animation - simple slam down
+    // Trigger clapper animation
     clapperTop.classList.add('clapping');
     
-    // Reset clapper after a short time
     setTimeout(() => {
         clapperTop.classList.remove('clapping');
-    }, 500);
+    }, 600);
     
     // Generate random prompt
     currentPromptIndex = Math.floor(Math.random() * prompts.length);
@@ -92,7 +90,7 @@ function getNewPrompt() {
         // Increment take count AFTER everything is displayed
         takeCount++;
         isAnimating = false;
-    }, 1000);
+    }, 800);
 }
 
 function showCurrentPrompt() {
