@@ -53,7 +53,11 @@ function getNewPrompt() {
     }
     
     // Trigger clapper animation
-    clapperTop.classList.add('clapped');
+    clapperTop.classList.add('clapping');
+    
+    setTimeout(() => {
+        clapperTop.classList.remove('clapping');
+    }, 1200);
     
     // Generate random prompt
     currentPromptIndex = Math.floor(Math.random() * prompts.length);
@@ -80,12 +84,7 @@ function getNewPrompt() {
         // Increment take count AFTER everything is displayed
         takeCount++;
         isAnimating = false;
-        
-        // Reset clapper after animation
-        setTimeout(() => {
-            clapperTop.classList.remove('clapped');
-        }, 200);
-    }, 800);
+    }, 1000);
 }
 
 function showCurrentPrompt() {
