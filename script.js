@@ -37,13 +37,8 @@ function checkTrialStatus() {
 function checkDailyLimit() {
     checkTrialStatus(); // Check trial status first
     
-   const today = new Date().toDateString();
-const lastUsed = localStorage.getItem("lastUsedDate");
-
-if (lastUsed !== today) {
-  localStorage.setItem("lastUsedDate", today);
-  localStorage.setItem("spinCount", "0");
-}
+    // Since date reset is already handled at script initialization,
+    // we just need to check the current usage against the limit
     return isPremium || dailyPrompts < 3;
 }
 
@@ -73,7 +68,6 @@ function showUpgradeModal() {
 function closeUpgradeModal() {
     document.getElementById('upgradeModal').style.display = 'none';
 }
-
 
 function initiatePurchase() {
     window.open('https://buy.stripe.com/9B614ndWv8HJaUJa4q2wU3l', '_blank');
