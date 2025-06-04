@@ -5,8 +5,16 @@ let isAnimating = false;
 let promptHistory = [];
 
 // Monetization variables
+const today = new Date().toDateString();
+let lastDate = localStorage.getItem('lastDate') || today;
+
+if (lastDate !== today) {
+    localStorage.setItem('lastDate', today);
+    localStorage.setItem('dailyPrompts', '0');
+    lastDate = today;
+}
+
 let dailyPrompts = parseInt(localStorage.getItem('dailyPrompts') || '0');
-let lastDate = localStorage.getItem('lastDate') || new Date().toDateString();
 let isPremium = localStorage.getItem('isPremium') === 'true';
 let trialEnd = localStorage.getItem('trialEnd');
 
@@ -29,13 +37,13 @@ function checkTrialStatus() {
 function checkDailyLimit() {
     checkTrialStatus(); // Check trial status first
     
-    const today = new Date().toDateString();
-    if (lastDate !== today) {
-        dailyPrompts = 0;
-        localStorage.setItem('dailyPrompts', '0');
-        localStorage.setItem('lastDate', today);
-        lastDate = today;
-    }
+   const today = new Date().toDateString();
+const lastUsed = localStorage.getItem("lastUsedDate");
+
+if (lastUsed !== today) {
+  localStorage.setItem("lastUsedDate", today);
+  localStorage.setItem("spinCount", "0");
+}
     return isPremium || dailyPrompts < 3;
 }
 
