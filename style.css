@@ -1,19 +1,26 @@
+/* Universal Box-Sizing */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+/* Body and Global Styles */
 body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-    background: #1a1a1a;
+    /* Subtle radial gradient for background depth */
+    background: radial-gradient(circle at center, #2e2e2e 0%, #1a1a1a 100%);
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    color: #ffffff;
+    color: #f0f0f0; /* Off-white for general text */
     padding: 20px;
+    
+    /* Google Fonts Integration */
+    font-family: 'Roboto', sans-serif; /* A clean sans-serif for body text */
+    -webkit-font-smoothing: antialiased; /* Smoother font rendering */
+    -moz-osx-font-smoothing: grayscale;
 }
 
 .container {
@@ -22,21 +29,25 @@ body {
     width: 100%;
 }
 
+/* Headings and Subtitles */
 h1 {
+    font-family: 'Oswald', sans-serif; /* More impactful font for main title */
     font-size: 3.8em;
-    font-weight: 300;
+    font-weight: 700; /* Bolder weight */
     margin-bottom: 15px;
     color: #ffffff;
     letter-spacing: -1px;
     line-height: 1.1;
+    text-shadow: 0px 4px 8px rgba(0,0,0,0.3); /* Subtle text shadow for depth */
 }
 
 .subtitle {
+    font-family: 'Roboto', sans-serif;
     font-size: 1.2em;
-    font-weight: 400;
-    color: #888;
+    font-weight: 300; /* Lighter weight for subtitle */
+    color: #b0b0b0; /* Slightly muted grey */
     margin-bottom: 50px;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.8px; /* Increased letter spacing */
 }
 
 .header-section {
@@ -51,15 +62,18 @@ h1 {
     width: 120px;
     height: 120px;
     border-radius: 16px;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.6);
+    /* More pronounced shadow for depth */
+    box-shadow: 0 12px 30px rgba(0,0,0,0.7); 
     background: transparent;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .logo:hover {
-    transform: scale(1.02);
+    transform: scale(1.05); /* Slightly larger scale */
+    box-shadow: 0 15px 35px rgba(0,0,0,0.8); /* Stronger shadow on hover */
 }
 
+/* Clapperboard Structure */
 .clapperboard-outer {
     position: relative;
     width: 480px;
@@ -85,7 +99,8 @@ h1 {
         #ffffff 30px,
         #ffffff 60px
     );
-    border: 1px solid #333;
+    /* Softer border, subtle 3D effect */
+    border: 1px solid rgba(255, 255, 255, 0.1); 
     border-radius: 6px 6px 0 0;
     transform-origin: bottom center;
     cursor: pointer;
@@ -94,54 +109,36 @@ h1 {
     align-items: center;
     overflow: hidden;
     z-index: 10;
-    transition: transform 0.2s ease;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+    transition: transform 0.2s ease, box-shadow 0.3s ease;
+    /* More pronounced shadow for the top piece */
+    box-shadow: 0 6px 20px rgba(0,0,0,0.6); 
     padding: 0;
 }
 
 .clapper-top:hover {
-    transform: rotateX(-6deg);
+    transform: rotateX(-8deg); /* Slightly more rotation */
+    box-shadow: 0 8px 25px rgba(0,0,0,0.8);
 }
 
 .clapper-top.clapping {
-    animation: snapDown 1.2s ease-out;
+    animation: snapDown 1.2s cubic-bezier(0.68, -0.55, 0.265, 1.55); /* More "snappy" easing */
 }
 
 @keyframes snapDown {
-    0% { 
-        transform: rotateX(0deg); 
-    }
-    15% { 
-        transform: rotateX(-15deg); 
-    }
-    25% { 
-        transform: rotateX(-85deg); 
-    }
-    35% { 
-        transform: rotateX(-75deg); 
-    }
-    45% { 
-        transform: rotateX(-82deg); 
-    }
-    55% { 
-        transform: rotateX(-78deg); 
-    }
-    65% { 
-        transform: rotateX(-80deg); 
-    }
-    75% { 
-        transform: rotateX(-79deg); 
-    }
-    85% { 
-        transform: rotateX(-80deg); 
-    }
-    100% { 
-        transform: rotateX(-80deg); 
-    }
+    0% { transform: rotateX(0deg); }
+    15% { transform: rotateX(-20deg); } /* Increased initial snap */
+    25% { transform: rotateX(-90deg); } /* Deeper snap */
+    35% { transform: rotateX(-80deg); }
+    45% { transform: rotateX(-88deg); }
+    55% { transform: rotateX(-82deg); }
+    65% { transform: rotateX(-85deg); }
+    75% { transform: rotateX(-83deg); }
+    85% { transform: rotateX(-84deg); }
+    100% { transform: rotateX(-84deg); } /* Final resting angle */
 }
 
 .stripe {
-    display: none;
+    display: none; /* Keep this if the animation handles the stripe visual */
 }
 
 .clapper-bottom {
@@ -149,26 +146,27 @@ h1 {
     top: 90px;
     width: 100%;
     height: 250px;
-    background: #2a2a2a;
-    border: 1px solid #333;
+    background: #252525; /* Slightly lighter than body background for contrast */
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Consistent subtle border */
     border-radius: 0 0 6px 6px;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+    /* Stronger shadow for the main board */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.6); 
 }
 
 .slate-content {
-    padding: 35px;
+    padding: 40px; /* Increased padding for more breathing room */
     height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: 24px;
+    gap: 28px; /* More space between rows */
 }
 
 .slate-row {
     display: flex;
     gap: 30px;
     border-bottom: 1px solid #444;
-    padding-bottom: 18px;
+    padding-bottom: 20px; /* More padding */
     align-items: baseline;
 }
 
@@ -180,70 +178,79 @@ h1 {
 }
 
 .slate-label {
-    color: #f4e4a6;
+    font-family: 'Oswald', sans-serif; /* Consistent label font */
+    color: #e0ac59; /* Richer gold/orange for labels */
     font-weight: 500;
     font-size: 13px;
-    margin-bottom: 6px;
+    margin-bottom: 8px; /* Increased margin */
     text-transform: uppercase;
-    letter-spacing: 1.2px;
+    letter-spacing: 1.5px; /* Increased letter spacing for labels */
 }
 
 .slate-value {
+    font-family: 'Montserrat', sans-serif; /* Modern sans-serif for values */
     color: #ffffff;
-    font-size: 18px;
-    font-weight: 400;
-    letter-spacing: 0.3px;
+    font-size: 20px; /* Slightly larger */
+    font-weight: 500; /* Medium weight */
+    letter-spacing: 0.5px;
 }
 
 .prompt-number {
-    color: #f4e4a6;
-    font-size: 36px;
-    font-weight: 600;
-    letter-spacing: -0.5px;
+    font-family: 'Montserrat', sans-serif; /* Consistent with other values */
+    color: #e0ac59; /* Matches label color for highlight */
+    font-size: 40px; /* More prominent */
+    font-weight: 700; /* Bolder */
+    letter-spacing: -0.8px;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
 }
 
+/* Action Buttons */
 .action-button {
-    background: #8b5a6b;
+    /* More vibrant, subtle gradient */
+    background: linear-gradient(135deg, #a749f8, #e75acb); 
     color: #ffffff;
     border: none;
     padding: 16px 32px;
-    font-size: 15px;
-    font-weight: 500;
-    border-radius: 6px;
+    font-size: 16px; /* Slightly larger text */
+    font-weight: 600; /* Bolder text */
+    border-radius: 8px; /* Slightly more rounded */
     cursor: pointer;
-    transition: all 0.2s ease;
-    margin: 12px 8px;
-    letter-spacing: 0.3px;
-    box-shadow: 0 2px 8px rgba(139, 90, 107, 0.3);
+    transition: all 0.3s ease;
+    margin: 15px 10px; /* More margin */
+    letter-spacing: 0.5px;
+    /* More depth to button shadows */
+    box-shadow: 0 5px 15px rgba(167, 73, 248, 0.3); 
 }
 
 .action-button:hover {
-    background: #7a4f5e;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(139, 90, 107, 0.4);
+    /* Lift and stronger shadow on hover */
+    transform: translateY(-3px); 
+    box-shadow: 0 8px 25px rgba(167, 73, 248, 0.5);
+    background: linear-gradient(135deg, #b562ff, #f37cdb); /* Slightly brighter gradient on hover */
 }
 
 .history-btn {
     background: #1e3a5f;
     color: #ffffff;
     border: 1px solid #1e3a5f;
-    box-shadow: 0 2px 8px rgba(30, 58, 95, 0.3);
+    box-shadow: 0 5px 15px rgba(30, 58, 95, 0.3);
 }
 
 .history-btn:hover {
     background: #2c4f7c;
     border-color: #2c4f7c;
-    box-shadow: 0 4px 12px rgba(30, 58, 95, 0.4);
+    box-shadow: 0 8px 25px rgba(30, 58, 95, 0.5);
 }
 
+/* History Display */
 .history-display {
     margin-top: 50px;
     padding: 35px;
     background: #2a2a2a;
-    border-radius: 8px;
-    border: 1px solid #333;
+    border-radius: 12px; /* Consistent rounded corners */
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle border */
     display: none;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.6); /* Deeper shadow */
 }
 
 .history-display.show {
@@ -251,33 +258,54 @@ h1 {
 }
 
 .history-header {
+    font-family: 'Oswald', sans-serif;
     color: #ffffff;
-    font-size: 20px;
-    font-weight: 300;
+    font-size: 22px; /* Slightly larger */
+    font-weight: 500;
     text-align: center;
     margin-bottom: 30px;
-    letter-spacing: 0.5px;
+    letter-spacing: 1px;
 }
 
 .history-list {
     max-height: 280px;
     overflow-y: auto;
     margin-bottom: 25px;
+    /* Custom scrollbar for better aesthetics */
+    scrollbar-width: thin; /* Firefox */
+    scrollbar-color: #555 #333; /* Firefox */
 }
+/* Webkit (Chrome, Safari) scrollbar styling */
+.history-list::-webkit-scrollbar {
+    width: 8px;
+}
+.history-list::-webkit-scrollbar-track {
+    background: #333;
+    border-radius: 10px;
+}
+.history-list::-webkit-scrollbar-thumb {
+    background-color: #555;
+    border-radius: 10px;
+    border: 2px solid #333;
+}
+
 
 .history-item {
     background: #333;
     margin-bottom: 12px;
     padding: 18px;
-    border-radius: 6px;
-    border-left: 2px solid #666;
+    border-radius: 8px; /* Slightly more rounded */
+    border-left: 3px solid #e0ac59; /* Accent color for left border */
     cursor: pointer;
     transition: all 0.2s ease;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2); /* Subtle shadow for each item */
 }
 
 .history-item:hover {
     background: #3a3a3a;
-    border-left-color: #888;
+    border-left-color: #f4e4a6; /* Brighter accent on hover */
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
 }
 
 .history-item-header {
@@ -288,48 +316,82 @@ h1 {
 }
 
 .history-take, .history-prompt-num {
+    font-family: 'Roboto', sans-serif;
     color: #ccc;
     font-weight: 500;
-    font-size: 13px;
-    letter-spacing: 0.5px;
+    font-size: 14px; /* Slightly larger */
+    letter-spacing: 0.8px;
 }
 
 .history-text {
+    font-family: 'Roboto', sans-serif;
     color: #ffffff;
-    font-size: 15px;
-    line-height: 1.4;
+    font-size: 16px; /* Slightly larger */
+    line-height: 1.5;
     font-weight: 400;
 }
 
+/* Prompt Display */
 .prompt-display {
     margin-top: 60px;
     padding: 50px;
-    background: linear-gradient(135deg, #8b5a6b, #1e3a5f);
-    border-radius: 12px;
+    /* More distinct gradient */
+    background: linear-gradient(135deg, #6c3483, #2e1a47); /* Deeper purples */
+    border-radius: 15px; /* More rounded */
     border: 3px solid #f4e4a6;
     opacity: 0;
     transform: translateY(40px) scale(0.95);
     transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 
+    box-shadow:
         0 20px 50px rgba(0,0,0,0.6),
         0 0 60px rgba(244, 228, 166, 0.3);
     animation: promptGlow 3s ease-in-out infinite alternate;
 }
 
 @keyframes promptGlow {
-    0% { 
-        box-shadow: 
+    0% {
+        box-shadow:
             0 20px 50px rgba(0,0,0,0.6),
             0 0 60px rgba(244, 228, 166, 0.3);
     }
-    100% { 
-        box-shadow: 
+    100% {
+        box-shadow:
             0 20px 50px rgba(0,0,0,0.6),
-            0 0 80px rgba(244, 228, 166, 0.5);
+            0 0 80px rgba(244, 228, 166, 0.5); /* Stronger glow */
     }
 }
+.prompt-display.show {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+.prompt-header {
+    font-family: 'Oswald', sans-serif; /* Consistent header font */
+    color: #e0ac59; /* Matches slate label color */
+    font-size: 20px; /* Slightly larger */
+    font-weight: 700; /* Bolder */
+    text-align: center;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.prompt-text {
+    font-family: 'Montserrat', sans-serif; /* Distinct font for the main prompt */
+    font-size: 30px; /* More prominent */
+    line-height: 1.4;
+    text-align: center;
+    margin-top: 25px;
+    color: #ffffff;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-shadow: 2px 2px 5px rgba(0,0,0,0.4); /* Stronger text shadow */
+}
+
+/* Usage Display & Premium Section */
 .usage-container {
-    margin: 30px 0;
+    margin: 40px 0; /* More vertical space */
     text-align: center;
 }
 
@@ -339,44 +401,66 @@ h1 {
     margin-bottom: 20px;
     font-weight: 500;
     font-size: 16px;
+    transition: all 0.3s ease; /* Smooth transitions for state changes */
 }
 
 .usage-display.free {
-    background: rgba(244, 228, 166, 0.2);
+    background: rgba(244, 228, 166, 0.15); /* Slightly less opaque */
     border: 1px solid #f4e4a6;
     color: #f4e4a6;
+    box-shadow: 0 2px 8px rgba(244, 228, 166, 0.1);
 }
 
 .usage-display.premium {
-    background: rgba(139, 90, 107, 0.2);
-    border: 1px solid #8b5a6b;
-    color: #f4e4a6;
+    background: rgba(167, 73, 248, 0.15); /* From new button color */
+    border: 1px solid #a749f8;
+    color: #e75acb; /* From new button color */
+    box-shadow: 0 2px 8px rgba(167, 73, 248, 0.1);
 }
+.usage-display.premium strong {
+    color: #ffffff; /* Make "Premium Member" pop */
+}
+
 
 .usage-display.limit-reached {
-    background: rgba(220, 53, 69, 0.2);
+    background: rgba(220, 53, 69, 0.15); /* Slightly less opaque */
     border: 1px solid #dc3545;
     color: #ff6b6b;
+    font-weight: bold;
+    display: flex; /* Flexbox for icon and text */
+    align-items: center;
+    justify-content: center;
+    gap: 10px; /* Space between icon and text */
+    box-shadow: 0 2px 8px rgba(220, 53, 69, 0.1);
+}
+.usage-display.limit-reached::before { /* For the cross icon */
+    content: '❌'; 
+    font-size: 1.2em;
+    line-height: 1; /* Align icon better */
 }
 
+
 .premium-button {
-    background: linear-gradient(135deg, #8b5a6b, #1e3a5f);
+    /* Using the same vibrant gradient as action buttons */
+    background: linear-gradient(135deg, #a749f8, #e75acb); 
     color: #ffffff;
     border: none;
     padding: 16px 32px;
-    font-size: 16px;
-    font-weight: 600;
+    font-size: 17px; /* Slightly larger text */
+    font-weight: 700; /* Bolder */
     border-radius: 8px;
     cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(139, 90, 107, 0.3);
+    box-shadow: 0 5px 15px rgba(167, 73, 248, 0.3); /* Consistent shadow */
 }
 
 .premium-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(139, 90, 107, 0.4);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(167, 73, 248, 0.5);
+    background: linear-gradient(135deg, #b562ff, #f37cdb); /* Brighter gradient on hover */
 }
 
+/* Modal Styling */
 .modal {
     display: none;
     position: fixed;
@@ -385,62 +469,91 @@ h1 {
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0,0,0,0.8);
-    backdrop-filter: blur(5px);
+    background-color: rgba(0,0,0,0.85); /* Slightly darker overlay */
+    backdrop-filter: blur(8px); /* Stronger blur */
     align-items: center;
     justify-content: center;
+    opacity: 0; /* Start hidden for animation */
+    transition: opacity 0.3s ease;
+}
+
+.modal.show {
+    opacity: 1;
 }
 
 .modal-content {
     background: #2a2a2a;
     margin: auto;
     padding: 40px;
-    border-radius: 12px;
+    border-radius: 16px; /* More rounded */
     width: 90%;
-    max-width: 500px;
+    max-width: 550px; /* Slightly wider */
     color: white;
     text-align: center;
-    border: 2px solid #f4e4a6;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+    border: 2px solid #e0ac59; /* Gold border for modal */
+    box-shadow: 0 25px 80px rgba(0,0,0,0.9); /* More impactful shadow */
+    transform: scale(0.9); /* Start slightly smaller for pop-in effect */
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.modal.show .modal-content {
+    transform: scale(1);
 }
 
 .close {
     color: #aaa;
     float: right;
-    font-size: 28px;
+    font-size: 32px; /* Larger close button */
     font-weight: bold;
     cursor: pointer;
-    margin-top: -10px;
+    margin-top: -15px; /* Adjust positioning */
+    margin-right: -15px; /* Adjust positioning */
+    transition: color 0.2s ease;
 }
 
 .close:hover {
-    color: #f4e4a6;
+    color: #e0ac59; /* Gold accent on hover */
+}
+
+.modal-content h2 { /* Added for better modal heading styling */
+    font-family: 'Oswald', sans-serif;
+    font-size: 2.2em;
+    color: #ffffff;
+    margin-bottom: 25px;
+    letter-spacing: 0.5px;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
 }
 
 .pricing-card {
-    background: rgba(139, 90, 107, 0.1);
+    background: rgba(167, 73, 248, 0.1); /* Match new purple accent */
     padding: 30px;
     border-radius: 12px;
     margin: 25px 0;
-    border: 1px solid rgba(244, 228, 166, 0.2);
+    border: 1px solid rgba(220, 100, 255, 0.2); /* Lighter accent border */
+    box-shadow: 0 8px 20px rgba(0,0,0,0.4);
 }
 
 .pricing-card h3 {
-    color: #f4e4a6;
-    font-size: 24px;
+    font-family: 'Montserrat', sans-serif;
+    color: #e75acb; /* More vibrant pink/purple */
+    font-size: 26px; /* Slightly larger */
     margin-bottom: 15px;
+    font-weight: 700;
 }
 
 .price {
-    font-size: 3em;
-    color: #f4e4a6;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 3.5em; /* Larger price */
+    color: #f4e4a6; /* Gold for price */
     font-weight: bold;
     margin: 20px 0;
+    letter-spacing: -1px;
 }
 
 .price span {
     font-size: 0.4em;
     color: #ccc;
+    font-weight: normal;
 }
 
 .pricing-card ul {
@@ -451,77 +564,72 @@ h1 {
 }
 
 .pricing-card li {
-    padding: 8px 0;
+    font-family: 'Roboto', sans-serif;
+    padding: 10px 0; /* More padding */
     border-bottom: 1px solid rgba(255,255,255,0.1);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #e0e0e0;
+}
+.pricing-card li:last-child {
+    border-bottom: none; /* No border for the last item */
+}
+.pricing-card li::before {
+    content: '✅'; /* Checkmark icon */
+    font-size: 1.1em;
+    color: #66ff66; /* Green checkmark */
 }
 
+
 .subscribe-button {
-    background: linear-gradient(135deg, #8b5a6b, #1e3a5f);
-    color: white;
+    /* Vibrant gradient for subscribe button */
+    background: linear-gradient(135deg, #fdc830, #f37335); 
+    color: #333; /* Darker text for contrast on bright button */
     border: none;
-    padding: 16px 32px;
+    padding: 18px 32px; /* More padding */
     border-radius: 8px;
-    font-size: 18px;
+    font-size: 20px; /* Larger text */
     font-weight: bold;
     cursor: pointer;
     width: 100%;
-    margin-top: 15px;
+    margin-top: 25px; /* More margin */
     transition: all 0.3s ease;
+    box-shadow: 0 6px 20px rgba(253, 200, 48, 0.4); /* Stronger shadow */
 }
 
 .subscribe-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(139, 90, 107, 0.4);
+    transform: translateY(-4px); /* More pronounced lift */
+    box-shadow: 0 10px 30px rgba(253, 200, 48, 0.6);
+    background: linear-gradient(135deg, #ffdd55, #ff9255); /* Brighter gradient on hover */
 }
 
 .trial-button {
     background: transparent;
-    color: #f4e4a6;
-    border: 1px solid #f4e4a6;
+    color: #e0ac59; /* Gold accent */
+    border: 1px solid #e0ac59;
     padding: 12px 24px;
     border-radius: 6px;
-    font-size: 14px;
+    font-size: 15px; /* Slightly larger */
     cursor: pointer;
     transition: all 0.3s ease;
+    margin-top: 15px; /* Added margin */
 }
 
 .trial-button:hover {
-    background: #f4e4a6;
+    background: #e0ac59;
     color: #2a2a2a;
+    box-shadow: 0 4px 15px rgba(224, 172, 89, 0.4);
 }
 
 .demo-option {
-    margin-top: 20px;
-    font-size: 14px;
-    color: #ccc;
-}
-.prompt-display.show {
-    opacity: 1;
-    transform: translateY(0) scale(1);
+    margin-top: 25px; /* More margin */
+    font-size: 15px;
+    color: #b0b0b0; /* Consistent muted grey */
 }
 
-.prompt-text {
-    font-size: 28px;
-    line-height: 1.4;
-    text-align: center;
-    margin-top: 25px;
-    color: #ffffff;
-    font-weight: 600;
-    letter-spacing: 0.3px;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-}
 
-.prompt-header {
-    color: #f4e4a6;
-    font-size: 18px;
-    font-weight: 600;
-    text-align: center;
-    margin-bottom: 20px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-}
-
+/* Media Queries for Responsiveness */
 @media (max-width: 768px) {
     .clapperboard-outer {
         width: 350px;
@@ -550,7 +658,7 @@ h1 {
     }
     
     .prompt-number {
-        font-size: 28px;
+        font-size: 32px; /* Adjusted for mobile */
     }
     
     h1 {
@@ -568,15 +676,74 @@ h1 {
     }
     
     .prompt-text {
-        font-size: 20px;
+        font-size: 24px; /* Adjusted for mobile */
     }
     
     .prompt-header {
-        font-size: 14px;
+        font-size: 16px; /* Adjusted for mobile */
     }
     
     .action-button {
         font-size: 14px;
         padding: 14px 28px;
+    }
+
+    .modal-content {
+        padding: 30px;
+    }
+
+    .modal-content h2 {
+        font-size: 1.8em;
+    }
+
+    .price {
+        font-size: 3em;
+    }
+
+    .subscribe-button {
+        font-size: 16px;
+        padding: 14px 28px;
+    }
+    .history-list {
+        max-height: 200px; /* Adjust for smaller screens */
+    }
+}
+
+@media (max-width: 480px) {
+    .clapperboard-outer {
+        width: 100%; /* Take full width on very small screens */
+        max-width: 300px; /* Max out at 300px if needed */
+    }
+    .clapperboard-container {
+        height: 240px;
+    }
+    .clapper-top {
+        height: 60px;
+    }
+    .clapper-bottom {
+        top: 60px;
+        height: 180px;
+    }
+    .slate-content {
+        padding: 20px;
+        gap: 15px;
+    }
+    .slate-value {
+        font-size: 14px;
+    }
+    .slate-label {
+        font-size: 11px;
+    }
+    .prompt-number {
+        font-size: 28px;
+    }
+    h1 {
+        font-size: 2.2em;
+    }
+    .subtitle {
+        font-size: 1em;
+    }
+    .prompt-text {
+        font-size: 20px;
     }
 }
