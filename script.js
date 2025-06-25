@@ -5,18 +5,28 @@ let isAnimating = false;
 let promptHistory = [];
 
 // Monetization variables
-const today = new Date().toDateString();
-let lastDate = localStorage.getItem('lastDate') || today;
-
-if (lastDate !== today) {
-    localStorage.setItem('lastDate', today);
-    localStorage.setItem('dailyPrompts', '0');
-    lastDate = today;
-}
-
 let dailyPrompts = parseInt(localStorage.getItem('dailyPrompts') || '0');
 let isPremium = localStorage.getItem('isPremium') === 'true';
 let trialEnd = localStorage.getItem('trialEnd');
+
+// --- START OF FIX ---
+function handleDailyReset() {
+    const today = new Date().toDateString(); // Get the current date each time this function is called
+    let lastDate = localStorage.getItem('lastDate'); // Retrieve lastDate from localStorage
+
+    if (lastDate !== today) {
+        // It's a new day! Reset daily prompts.
+        localStorage.setItem('lastDate', today);
+        localStorage.setItem('dailyPrompts', '0');
+        dailyPrompts = 0; // Update the in-memory variable as well
+        console.log("Daily limit reset for a new day!"); // For debugging
+    }
+}
+
+// Call this function at the very beginning of your script execution,
+// and potentially before any action that checks daily limits.
+handleDailyReset();
+// --- END OF FIX ---
 
 // Function definitions start here
 
@@ -37,8 +47,11 @@ function checkTrialStatus() {
 function checkDailyLimit() {
     checkTrialStatus(); // Check trial status first
     
-    // Since date reset is already handled at script initialization,
-    // we just need to check the current usage against the limit
+    // Ensure dailyPrompts is updated if a reset occurred since last page load
+    // Although handleDailyReset is called on load, this is good for robustness
+    // if other parts of the code might rely on it.
+    // For this specific code, the initial handleDailyReset() suffices for the day's first check.
+
     return isPremium || dailyPrompts < 3;
 }
 
@@ -89,6 +102,10 @@ function createClapSound() {
 function getNewPrompt() {
     if (isAnimating) return;
     
+    // Call handleDailyReset again to ensure that if the user kept the tab open past midnight,
+    // the dailyPrompts variable is correctly updated before the check.
+    handleDailyReset(); 
+
     if (!checkDailyLimit()) {
         showUpgradeModal();
         return;
